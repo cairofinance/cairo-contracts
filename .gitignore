@@ -1,0 +1,8 @@
+secret
+node_modules
+node_modules/
+.secret
+.bsc_api_key
+**/node_modules
+.keystore
+.env

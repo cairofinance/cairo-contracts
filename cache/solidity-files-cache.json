@@ -1,0 +1,2591 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/cloud/projects/cairo-finance-swap/contracts/core/Timelock.sol": {
+      "lastModificationDate": 1648705491012,
+      "contentHash": "8ab713580cd0060e109dda3fff99b585",
+      "sourceName": "contracts/core/Timelock.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../libraries/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Timelock"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/libraries/SafeMath.sol": {
+      "lastModificationDate": 1648701888831,
+      "contentHash": "8b1956d66708d385265770011cd2931e",
+      "sourceName": "contracts/libraries/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.0"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/MasterChefTimelock.sol": {
+      "lastModificationDate": 1648705491011,
+      "contentHash": "36ab1804c2f91436ab4db3ccf07e2c1e",
+      "sourceName": "contracts/farm/MasterChefTimelock.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../core/Timelock.sol",
+        "./MasterChef.sol",
+        "../interfaces/IBEP20.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "MasterChefTimelock"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/MasterChef.sol": {
+      "lastModificationDate": 1648708082705,
+      "contentHash": "416d016d3c5a70f711f64f9d8428a6a9",
+      "sourceName": "contracts/farm/MasterChef.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../libraries/SafeMath.sol",
+        "../interfaces/IBEP20.sol",
+        "../token/SafeBEP20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "./SyrupBar.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "IMigratorChef",
+        "MasterChef"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/IBEP20.sol": {
+      "lastModificationDate": 1648700588244,
+      "contentHash": "0fd61f8b70c32c9112b8db0d824989bb",
+      "sourceName": "contracts/interfaces/IBEP20.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.0"
+      ],
+      "artifacts": [
+        "IBEP20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1648702792715,
+      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/token/SafeBEP20.sol": {
+      "lastModificationDate": 1648700588218,
+      "contentHash": "6a7f2399f2216d3dedccad30cd6996ae",
+      "sourceName": "contracts/token/SafeBEP20.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/IBEP20.sol",
+        "../libraries/SafeMath.sol",
+        "../libraries/Address.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "SafeBEP20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1648704404363,
+      "contentHash": "17d9f40220b0ab370db2c77e7c92c4ef",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Ownable"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/SyrupBar.sol": {
+      "lastModificationDate": 1648708541820,
+      "contentHash": "6599f5e9312ecf881e01b6fb44c8becb",
+      "sourceName": "contracts/farm/SyrupBar.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../token/BEP20.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.12"
+      ],
+      "artifacts": [
+        "SyrupBar"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/libraries/Address.sol": {
+      "lastModificationDate": 1648700588231,
+      "contentHash": "d6b7e23e2206427c30bad6a843228610",
+      "sourceName": "contracts/libraries/Address.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.6"
+      ],
+      "artifacts": [
+        "Address"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1648704404262,
+      "contentHash": "bc047f55d4e6dcc5a9c7ee096f530312",
+      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Context"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/token/BEP20.sol": {
+      "lastModificationDate": 1648700588219,
+      "contentHash": "5456869c7cf178577bd5823c37b6e8df",
+      "sourceName": "contracts/token/BEP20.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/IBEP20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/utils/Context.sol",
+        "../libraries/SafeMath.sol",
+        "../libraries/Address.sol"
+      ],
+      "versionPragmas": [
+        ">=0.4.0"
+      ],
+      "artifacts": [
+        "BEP20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/swap/CairoFinanceFee.sol": {
+      "lastModificationDate": 1648704061131,
+      "contentHash": "369c79f176f54527000083f3caaa3166",
+      "sourceName": "contracts/swap/CairoFinanceFee.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./CairoPair.sol",
+        "../libraries/CairoLibrary.sol",
+        "../interfaces/ICairoRouter.sol",
+        "../interfaces/ICairoFactory.sol",
+        "../interfaces/ICairoPair.sol",
+        "../libraries/SafeMath.sol",
+        "../token/SafeBEP20.sol",
+        "hardhat/console.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/Address.sol"
+      ],
+      "versionPragmas": [
+        ">=0.5.16"
+      ],
+      "artifacts": [
+        "CairoFinanceFee"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/swap/CairoPair.sol": {
+      "lastModificationDate": 1648708474345,
+      "contentHash": "95d4797eb38f9e224bd3559ae2d88bdd",
+      "sourceName": "contracts/swap/CairoPair.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/ICairoPair.sol",
+        "../token/CairoBEP20.sol",
+        "../libraries/Math.sol",
+        "../libraries/UQ112x112.sol",
+        "../interfaces/IERC20.sol",
+        "../interfaces/ICairoFactory.sol",
+        "../interfaces/ICairoCallee.sol"
+      ],
+      "versionPragmas": [
+        ">=0.5.16"
+      ],
+      "artifacts": [
+        "CairoPair"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/libraries/CairoLibrary.sol": {
+      "lastModificationDate": 1648702045106,
+      "contentHash": "75053357e5f71eff8c686a261379c856",
+      "sourceName": "contracts/libraries/CairoLibrary.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/ICairoFactory.sol",
+        "../interfaces/ICairoPair.sol",
+        "./SafeMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "CairoLibrary"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/ICairoRouter.sol": {
+      "lastModificationDate": 1648703304298,
+      "contentHash": "fdd2e916dae7a35e6be4ccd3eb0f0aa7",
+      "sourceName": "contracts/interfaces/ICairoRouter.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./ICairoRouter02.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.2"
+      ],
+      "artifacts": [
+        "ICairoRouter"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/ICairoFactory.sol": {
+      "lastModificationDate": 1648701918178,
+      "contentHash": "1a2998a61c584247ef28dd0cb0be3b3f",
+      "sourceName": "contracts/interfaces/ICairoFactory.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "ICairoFactory"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/ICairoPair.sol": {
+      "lastModificationDate": 1648701913960,
+      "contentHash": "a266a022d2eb4006a09598f462bc72a1",
+      "sourceName": "contracts/interfaces/ICairoPair.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "ICairoPair"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/token/CairoBEP20.sol": {
+      "lastModificationDate": 1648708447497,
+      "contentHash": "0af12021f242dd7ad451d9a1108f47e5",
+      "sourceName": "contracts/token/CairoBEP20.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/ICairoBEP20.sol",
+        "../libraries/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        ">=0.5.16"
+      ],
+      "artifacts": [
+        "CairoBEP20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/libraries/Math.sol": {
+      "lastModificationDate": 1648701888831,
+      "contentHash": "d602683d06f93f170c6429f4a3ae4f30",
+      "sourceName": "contracts/libraries/Math.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.16"
+      ],
+      "artifacts": [
+        "Math"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/libraries/UQ112x112.sol": {
+      "lastModificationDate": 1648700588231,
+      "contentHash": "b8c84d86e899f985289f5cfe4858f4a7",
+      "sourceName": "contracts/libraries/UQ112x112.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.16"
+      ],
+      "artifacts": [
+        "UQ112x112"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/IERC20.sol": {
+      "lastModificationDate": 1648700588236,
+      "contentHash": "d93eb938bd965cfa403a16931cead396",
+      "sourceName": "contracts/interfaces/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/ICairoCallee.sol": {
+      "lastModificationDate": 1648701888685,
+      "contentHash": "d9e138fe1e00921a7354d9c39dd6e009",
+      "sourceName": "contracts/interfaces/ICairoCallee.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "ICairoCallee"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/ICairoBEP20.sol": {
+      "lastModificationDate": 1648702315443,
+      "contentHash": "4ee47079f0a3bcc2ef748ee9ea5a8c2c",
+      "sourceName": "contracts/interfaces/ICairoBEP20.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "ICairoBEP20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/ICairoRouter02.sol": {
+      "lastModificationDate": 1648703244574,
+      "contentHash": "431ab0d608da6bf9e5fbc5e306bebc54",
+      "sourceName": "contracts/interfaces/ICairoRouter02.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./ICairoRouter01.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.2"
+      ],
+      "artifacts": [
+        "ICairoRouter02"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/ICairoRouter01.sol": {
+      "lastModificationDate": 1648701909469,
+      "contentHash": "44bee178713a284c7c83cacfc4a96369",
+      "sourceName": "contracts/interfaces/ICairoRouter01.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.2"
+      ],
+      "artifacts": [
+        "ICairoRouter01"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/ido/IFO.sol": {
+      "lastModificationDate": 1648708394410,
+      "contentHash": "32a6fd8d1a189872b85edf621d17cdf1",
+      "sourceName": "contracts/ido/IFO.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../interfaces/IBEP20.sol",
+        "../libraries/SafeMath.sol",
+        "../libraries/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "IFO",
+        "SafeBEP20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/token/TokenLocker.sol": {
+      "lastModificationDate": 1648702292091,
+      "contentHash": "b4a207689cb5e5eaed61c8f1511866ca",
+      "sourceName": "contracts/token/TokenLocker.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/ICairoBEP20.sol",
+        "../libraries/SafeMath.sol",
+        "./SafeBEP20.sol",
+        "./BEP20.sol"
+      ],
+      "versionPragmas": [
+        ">=0.5.16"
+      ],
+      "artifacts": [
+        "TokenLocker"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/token/CairoToken.sol": {
+      "lastModificationDate": 1648708158382,
+      "contentHash": "4a7d8f09796d1e0bc3a471a82ad4844e",
+      "sourceName": "contracts/token/CairoToken.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/Context.sol",
+        "@openzeppelin/contracts/proxy/utils/Initializable.sol",
+        "../libraries/SafeMath.sol",
+        "../interfaces/IBEP20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "ApproveAndCallFallBack",
+        "CairoToken",
+        "Roles"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/proxy/utils/Initializable.sol": {
+      "lastModificationDate": 1648704404362,
+      "contentHash": "b4f4dc8b594d9ae3678d22a9301bb792",
+      "sourceName": "@openzeppelin/contracts/proxy/utils/Initializable.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../utils/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Initializable"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/utils/Address.sol": {
+      "lastModificationDate": 1648704404257,
+      "contentHash": "37103cdc416efc2601c6f6734044b559",
+      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Address"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/ICairoToken.sol": {
+      "lastModificationDate": 1648707426621,
+      "contentHash": "85ce09e5ea4d18f1e7bd4aa00e5c5e15",
+      "sourceName": "contracts/interfaces/ICairoToken.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IBEP20.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.2"
+      ],
+      "artifacts": [
+        "ICairoRouter"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/ido/IDO.sol": {
+      "lastModificationDate": 1648705491229,
+      "contentHash": "c573edcf67e25710f4ce45a6d774273f",
+      "sourceName": "contracts/ido/IDO.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../interfaces/IBEP20.sol",
+        "../libraries/SafeMath.sol",
+        "../libraries/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "IDO",
+        "SafeBEP20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/token/VCairoToken.sol": {
+      "lastModificationDate": 1648708493087,
+      "contentHash": "5eb58b226e9f40fcb09fdacd5af1dd25",
+      "sourceName": "contracts/token/VCairoToken.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/utils/math/SafeMath.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/DecimalMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "vCAIROToken"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "lastModificationDate": 1648704404346,
+      "contentHash": "c7492a9ab60ba083d345f893d5e0f33c",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/utils/math/SafeMath.sol": {
+      "lastModificationDate": 1648704404372,
+      "contentHash": "9f282272a197e5e800ef035117e86f2f",
+      "sourceName": "@openzeppelin/contracts/utils/math/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol": {
+      "lastModificationDate": 1648704404372,
+      "contentHash": "e5187f826fe23aac7606440680f16de3",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol",
+        "../../../utils/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeERC20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/libraries/DecimalMath.sol": {
+      "lastModificationDate": 1648705491230,
+      "contentHash": "2ef16c53a42b9ad958ef898fa9b602e9",
+      "sourceName": "contracts/libraries/DecimalMath.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "DecimalMath",
+        "MySafeMath"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/mock/MockToken.sol": {
+      "lastModificationDate": 1648708329821,
+      "contentHash": "eca3102713448936c5b9b2a42e49edbe",
+      "sourceName": "contracts/mock/MockToken.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SafeMath.sol",
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0"
+      ],
+      "artifacts": [
+        "MockToken"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+      "lastModificationDate": 1648704404281,
+      "contentHash": "11cf6f3b9d83b92ec458961ae3d0533f",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IERC20.sol",
+        "../../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/HoldStake.sol": {
+      "lastModificationDate": 1648706002297,
+      "contentHash": "f2d9f0051a7bc9dc8610cf6266552f08",
+      "sourceName": "contracts/farm/HoldStake.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../libraries/SafeMath.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "HoldStake"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/AutoCairoPool.sol": {
+      "lastModificationDate": 1648708394410,
+      "contentHash": "47966fbb858f61c3a34ef76056d8e845",
+      "sourceName": "contracts/farm/AutoCairoPool.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/math/SafeMath.sol",
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/security/Pausable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "AutoCairoPool",
+        "IMasterChef"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/security/Pausable.sol": {
+      "lastModificationDate": 1648704404363,
+      "contentHash": "835673b68fdeaf41b38c84e966e8630b",
+      "sourceName": "@openzeppelin/contracts/security/Pausable.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Pausable"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/router/CairoRouter02.sol": {
+      "lastModificationDate": 1648703248055,
+      "contentHash": "04817382f1e1536ace242f39c93af756",
+      "sourceName": "contracts/router/CairoRouter02.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../interfaces/ICairoFactory.sol",
+        "../interfaces/ICairoRouter02.sol",
+        "../libraries/TransferHelper.sol",
+        "../libraries/CairoLibrary.sol",
+        "../libraries/SafeMath.sol",
+        "../interfaces/IERC20.sol",
+        "../interfaces/IWETH.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.6"
+      ],
+      "artifacts": [
+        "CairoRouter",
+        "ISwapMining"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/libraries/TransferHelper.sol": {
+      "lastModificationDate": 1648700588232,
+      "contentHash": "8de21f63f5747423f0a492b85a612927",
+      "sourceName": "contracts/libraries/TransferHelper.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "TransferHelper"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/interfaces/IWETH.sol": {
+      "lastModificationDate": 1648700588242,
+      "contentHash": "394225ba5efc3d0459b82f7bae859443",
+      "sourceName": "contracts/interfaces/IWETH.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "IWETH"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/router/CairoRouter.sol": {
+      "lastModificationDate": 1648708447495,
+      "contentHash": "612a1a06ede14766d730888c9bf54a66",
+      "sourceName": "contracts/router/CairoRouter.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../interfaces/ICairoFactory.sol",
+        "../interfaces/ICairoRouter.sol",
+        "../libraries/TransferHelper.sol",
+        "../libraries/CairoLibrary.sol",
+        "../libraries/SafeMath.sol",
+        "../interfaces/IERC20.sol",
+        "../interfaces/IWETH.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.6"
+      ],
+      "artifacts": [
+        "CairoRouter",
+        "ISwapMining"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/SwapMining.sol": {
+      "lastModificationDate": 1648705491272,
+      "contentHash": "80a19278d7c598834ab3097ab7a21c52",
+      "sourceName": "contracts/farm/SwapMining.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
+        "../libraries/SafeMath.sol",
+        "../libraries/CairoLibrary.sol",
+        "../interfaces/IERC20.sol",
+        "../interfaces/ICairoFactory.sol",
+        "../interfaces/ICairoPair.sol",
+        "../token/CairoToken.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "IOracle",
+        "SwapMining"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/utils/structs/EnumerableSet.sol": {
+      "lastModificationDate": 1648704404272,
+      "contentHash": "a0acec6ee83f09c4fedac2e7083dd29f",
+      "sourceName": "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "EnumerableSet"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/swap/CairoFactory.sol": {
+      "lastModificationDate": 1648701922883,
+      "contentHash": "94ed18c9e8757ac5766630f73e2e4468",
+      "sourceName": "contracts/swap/CairoFactory.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./CairoPair.sol",
+        "../libraries/CairoLibrary.sol"
+      ],
+      "versionPragmas": [
+        ">=0.5.16"
+      ],
+      "artifacts": [
+        "CairoFactory"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/Oracle.sol": {
+      "lastModificationDate": 1648701888832,
+      "contentHash": "f0fd0685fe8f3dae0a0b6bf169c4ade8",
+      "sourceName": "contracts/farm/Oracle.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/ICairoFactory.sol",
+        "../interfaces/ICairoPair.sol",
+        "../libraries/CairoLibrary.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.6"
+      ],
+      "artifacts": [
+        "CairoOracleLibrary",
+        "FixedPoint",
+        "Oracle"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/Pyramid.sol": {
+      "lastModificationDate": 1648708124262,
+      "contentHash": "9a76cba93b7da2c8a1bd893dd65d2734",
+      "sourceName": "contracts/farm/Pyramid.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../libraries/SafeMath.sol",
+        "../interfaces/IBEP20.sol",
+        "../token/SafeBEP20.sol",
+        "./MasterChef.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Pyramid"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+      "lastModificationDate": 1648704404366,
+      "contentHash": "1d45ab4bd9b10c657bd26a957be5bcd9",
+      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ReentrancyGuard"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/ILO.sol": {
+      "lastModificationDate": 1648707089818,
+      "contentHash": "141de0a0896bbf6a359ecd523bfb9fb1",
+      "sourceName": "contracts/farm/ILO.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../libraries/SafeMath.sol",
+        "../interfaces/IBEP20.sol",
+        "../token/SafeBEP20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "hardhat/console.sol",
+        "./SyrupBar.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "ILO"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/BnbStaking.sol": {
+      "lastModificationDate": 1648703977930,
+      "contentHash": "6a7b35646ee74c0af73b1defe9d3aa74",
+      "sourceName": "contracts/farm/BnbStaking.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../libraries/SafeMath.sol",
+        "../interfaces/IBEP20.sol",
+        "../token/SafeBEP20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0"
+      ],
+      "artifacts": [
+        "BnbStaking",
+        "IWBNB"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/farm/PoolFactory.sol": {
+      "lastModificationDate": 1648705944217,
+      "contentHash": "f7df1dd51ab377e55daf1b65aba2e1e5",
+      "sourceName": "contracts/farm/PoolFactory.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Address",
+        "Context",
+        "IBEP20",
+        "Ownable",
+        "ReentrancyGuard",
+        "SafeBEP20",
+        "SafeMath",
+        "SmartChefFactory",
+        "SmartChefInitializable"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/token/WBNB.sol": {
+      "lastModificationDate": 1648706923573,
+      "contentHash": "2252a6dba65e781429f3126d250c9d94",
+      "sourceName": "contracts/token/WBNB.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.18"
+      ],
+      "artifacts": [
+        "WBNB"
+      ]
+    }
+  }
+}
