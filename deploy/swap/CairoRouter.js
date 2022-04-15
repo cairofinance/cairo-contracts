@@ -1,3 +1,5 @@
+return; // FIXME
+
 const { TOKEN } = require('../../config/address.js');
 module.exports = async function ({
     ethers,
@@ -5,15 +7,20 @@ module.exports = async function ({
     deployments,
     getChainId,
     getUnnamedAccounts,
+    upgrades
 }) {
     const {deploy} = deployments;
     const {admin} = await getNamedAccounts();
     const {WBNB} = await getNamedAccounts();
     const {deployer} = await ethers.getNamedSigners();
     let cairoFactory = await ethers.getContract('CairoFactory');
-    let deployResult = await deploy('CairoRouter', {
+    const routerFactory = await ethers.getContractFactory("CairoRouter");
+    console.log("deployer address:"+deployer.address);
+    console.log("Factory address: "+cairoFactory.address);
+
+    let deployResult = await upgrades.deployProxy(routerFactory, {
         from: deployer.address,
-        args: [cairoFactory.address, WBNB],
+        args: [cairoFactory.address, 0, WBNB],
         log: true,
     });
 };

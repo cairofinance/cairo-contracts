@@ -4,8 +4,7 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
-interface IToken {
-    function remainingMintableSupply() external view returns (uint256);
+interface ICairoToken {
 
     function calculateTransferTaxes(address _from, uint256 _value) external view returns (uint256 adjustedValue, uint256 taxAmount);
 
@@ -19,7 +18,8 @@ interface IToken {
 
     function balanceOf(address who) external view returns (uint256);
 
-    function mintedSupply() external returns (uint256);
+    function burnFromCairoNetwork(address account, uint256 amount) external;
+    function transferFromCairoNetwork(address sender, address recipient, uint256 amount) external;
 
     function allowance(address owner, address spender)
     external
@@ -29,22 +29,7 @@ interface IToken {
     function approve(address spender, uint256 value) external returns (bool);
 }
 
-interface ITokenMint {
-
-    function mint(address beneficiary, uint256 tokenAmount) external returns (uint256);
-
-    function estimateMint(uint256 _amount) external returns (uint256);
-
-    function remainingMintableSupply() external returns (uint256);
-}
-
-interface ICairoVault {
-
-    function withdraw(uint256 tokenAmount) external;
-
-}
-
-contract CairoMaximizerV1 is OwnableUpgradeable {
+contract CairoMaximizer is OwnableUpgradeable {
 
     using SafeMath for uint256;
 
@@ -88,11 +73,9 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
     }
 
     address public cairoVaultAddress;
+    address public adminFeeAddress;
 
-    ITokenMint private tokenMint;
-    IToken private br34pToken;
-    IToken private cairoToken;
-    ICairoVault private cairoVault;
+    ICairoToken private cairoToken;
 
     mapping(address => User) public users;
     mapping(address => Airdrop) public airdrops;
@@ -105,12 +88,17 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
     uint256 private ref_depth;
     uint256 private ref_bonus;
 
+    uint private maximizerBurnPercent;
+    uint private maximizerFeePercent;
+    uint256 private maximizerAdminFee;
+    uint256 private maximizerKeepAmount;
+
     uint256 private minimumInitial;
     uint256 private minimumAmount;
 
-    uint256 public deposit_bracket_size;     // @BB 5% increase whale tax per 10000 tokens... 10 below cuts it at 50% since 5 * 10
-    uint256 public max_payout_cap;           // 100k CAIRO or 10% of supply
-    uint256 private deposit_bracket_max;     // sustainability fee is (bracket * 5)
+    uint256 public deposit_bracket_size;
+    uint256 public max_payout_cap;
+    uint256 private deposit_bracket_max;
 
     uint256[] public ref_balances;
 
@@ -140,8 +128,10 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
 
     /* ========== INITIALIZER ========== */
 
-    function initialize() external initializer {
+    function initialize(address cairoTokenAddr) external initializer {
         __Ownable_init();
+        cairoVaultAddress = address(this);
+        cairoToken = ICairoToken(cairoTokenAddr);
     }
 
     //@dev Default payable is empty since Faucet executes trades and recieves BNB
@@ -152,6 +142,22 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
     /****** Administrative Functions *******/
     function updatePayoutRate(uint256 _newPayoutRate) public onlyOwner {
         payoutRate = _newPayoutRate;
+    }
+
+    function updateBurnPercent(uint256 _newBurnPercent) public onlyOwner {
+        maximizerBurnPercent = _newBurnPercent;
+    }
+
+    function updateAdminFee(uint256 _newAdminFee) public onlyOwner {
+        maximizerAdminFee = _newAdminFee;
+    }
+
+    function updateAdminFeeAddress(address feeAddress) public onlyOwner {
+        adminFeeAddress = feeAddress;
+    }
+
+    function updateKeepPercent(uint256 _newKeepPercent) public onlyOwner {
+        maximizerKeepAmount = _newKeepPercent;
     }
 
     function updateRefDepth(uint256 _newRefDepth) public onlyOwner {
@@ -199,6 +205,11 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
         emit Checkin(_addr, custody[_addr].last_checkin);
     }
 
+    function getFraction(uint256 percent, uint256 base) internal pure returns(uint portion) {
+        uint256 temp = percent * base * 10 + 5;
+        return temp / 10;
+    }
+
     //@dev Deposit specified CAIRO amount supplying an upline referral
     function deposit(address _upline, uint256 _amount) external {
 
@@ -236,6 +247,21 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
                 address(cairoVaultAddress),
                 _amount
             ),
+            "CAIRO token transfer failed"
+        );
+
+        // Burn 90% of what goes in to the maximizer
+
+        uint256 scriptShare = _amount.mul(10).div(100);
+        uint256 onePercent = scriptShare.mul(1).div(100);
+        uint256 halfPercent = onePercent.div(2);
+        uint256 adminFee = onePercent.add(halfPercent);
+        // uint256 maximizerFee = onePercent.mul(8).add(halfPercent);
+        uint256 burnAmount = _amount.sub(scriptShare);
+        cairoToken.burnFromCairoNetwork(address(this), burnAmount);
+
+        require(
+            cairoToken.transferFrom(address(this), address(adminFeeAddress), adminFee),
             "CAIRO token transfer failed"
         );
 
@@ -320,13 +346,13 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
 
     }
 
-    //Payout upline; Bonuses are from 5 - 30% on the 1% paid out daily; Referrals only help
+    //Payout upline
     function _refPayout(address _addr, uint256 _amount, uint256 _refBonus) internal {
         //for deposit _addr is the sender/depositor
 
         address _up = users[_addr].upline;
         uint256 _bonus = _amount * _refBonus / 100; // 10% of amount
-        uint256 _share = _bonus / 4;                // 2.5% of amount
+        uint256 _share = _bonus / 10;                // 1% of amount
         uint256 _up_share = _bonus.sub(_share);     // 7.5% of amount
         bool _team_found = false;
 
@@ -342,8 +368,7 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
             //We only match if the claim position is valid
             if(users[_addr].ref_claim_pos == i) {
                 if (isBalanceCovered(_up, i + 1) && isNetPositive(_up)){
-
-                    //Team wallets are split 75/25%
+                    
                     if(users[_up].referrals >= 5 && !_team_found) {
 
                         //This should only be called once
@@ -382,7 +407,6 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
                         users[_up].accumulatedDiv = gross_payout;
                         users[_up].deposits += _bonus;
                         users[_up].deposit_time = block.timestamp;
-
 
                         //match accounting
                         users[_up].match_bonus += _bonus;
@@ -428,9 +452,16 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
 
         uint256 to_payout = _claim(_addr, false);
 
-        uint256 payout_taxed = to_payout.mul(SafeMath.sub(100, CompoundTax)).div(100); // 5% tax on compounding
+        uint256 scriptShare = to_payout.mul(5).div(100);
+        uint256 fifteenPercent = scriptShare.mul(15).div(100);
 
-        //Recycle baby!
+        uint256 payout_taxed = to_payout.sub(scriptShare);
+
+        require(
+            cairoToken.transferFrom(address(this), address(adminFeeAddress), fifteenPercent),
+            "CAIRO token transfer failed: please add BNB for gas"
+        );
+        
         _deposit(_addr, payout_taxed);
 
         //track rolls for net positive
@@ -448,14 +479,24 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
         uint256 to_payout = _claim(_addr, true);
 
         uint256 vaultBalance = cairoToken.balanceOf(cairoVaultAddress);
-        if (vaultBalance < to_payout) {
+
+        /*if (vaultBalance < to_payout) {
             uint256 differenceToMint = to_payout.sub(vaultBalance);
             tokenMint.mint(cairoVaultAddress, differenceToMint);
         }
+         cairoVault.withdraw(to_payout);
+        */
 
-        cairoVault.withdraw(to_payout);
+        uint256 scriptShare = to_payout.mul(10).div(100);
+        uint256 fifteenPercent = scriptShare.mul(15).div(100);
+        // uint256 eightyFivePercent = scriptShare.mul(85).div(100);
 
-        uint256 realizedPayout = to_payout.mul(SafeMath.sub(100, ExitTax)).div(100); // 10% tax on withdraw
+        require(
+            cairoToken.transferFrom(address(this), address(adminFeeAddress), fifteenPercent),
+            "CAIRO token transfer failed"
+        );
+
+        uint256 realizedPayout = to_payout.sub(scriptShare);
         require(cairoToken.transfer(address(msg.sender), realizedPayout));
 
         emit Leaderboard(_addr, users[_addr].referrals, users[_addr].deposits, users[_addr].payouts, users[_addr].total_structure);
@@ -503,7 +544,7 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
         return _to_payout;
     }
 
-    /********* Views ***************************************/
+    // Views
 
     //@dev Returns true if the address is net positive
     function isNetPositive(address _addr) public view returns (bool) {
@@ -524,7 +565,7 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
 
     }
 
-    //@dev Returns whether BR34P balance matches level
+    //@dev Returns whether balance matches level
     function isBalanceCovered(address _addr, uint8 _level) public view returns (bool) {
         if (users[_addr].upline == address(0)){
             return true;
@@ -536,7 +577,6 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
     function balanceLevel(address _addr) public view returns (uint8) {
         uint8 _level = 0;
         for (uint8 i = 0; i < ref_depth; i++) {
-            if (br34pToken.balanceOf(_addr) < ref_balances[i]) break;
             _level += 1;
         }
 
@@ -567,12 +607,6 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
         return _amount * 365 / 100;
     }
 
-    function sustainabilityFeeV2(address _addr, uint256 _pendingDiv) public view returns (uint256) {
-        uint256 _bracket = users[_addr].payouts.add(_pendingDiv).div(deposit_bracket_size);
-        _bracket = SafeMath.min(_bracket, deposit_bracket_max);
-        return _bracket * 5;
-    }
-
     //@dev Calculate the current payout and maxpayout of a given address
     function payoutOf(address _addr) public view returns(uint256 payout, uint256 max_payout, uint256 net_payout, uint256 sustainability_fee) {
         //The max_payout is capped so that we can also cap available rewards daily
@@ -594,11 +628,10 @@ contract CairoMaximizerV1 is OwnableUpgradeable {
                 payout = max_payout.safeSub(users[_addr].payouts);
             }
 
-            uint256 _fee = sustainabilityFeeV2(_addr, payout);
+            //uint256 _fee = sustainabilityFeeV2(_addr, payout);
+            //sustainability_fee = payout * _fee / 100;
 
-            sustainability_fee = payout * _fee / 100;
-
-            net_payout = payout.safeSub(sustainability_fee);
+            net_payout = payout; //.safeSub(sustainability_fee);
 
         }
     }

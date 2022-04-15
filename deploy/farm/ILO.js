@@ -12,7 +12,7 @@ module.exports = async function ({
     let accounts = await getNamedAccounts();
 
     let cairoToken = await ethers.getContract("CairoToken");
-    let currentBlockNumber = 16528535;//await ethers.provider.getBlockNumber();
+    let currentBlockNumber = await ethers.provider.getBlockNumber();
 
     if (hre.network.tags.local || hre.network.tags.test) {
         currentBlockNumber = 9300998;

@@ -3,11 +3,13 @@ require("@nomiclabs/hardhat-waffle");
 require("hardhat-gas-reporter");
 require("hardhat-spdx-license-identifier");
 require('hardhat-deploy');
+require('hardhat-deploy-ethers');
 require ('hardhat-abi-exporter');
 require("@nomiclabs/hardhat-ethers");
 require("dotenv/config")
 require('@openzeppelin/hardhat-upgrades');
-require("@tenderly/hardhat-tenderly");
+//require("@tenderly/hardhat-tenderly");
+
 //require('hardhat-ethernal');
 
 const { TOKENS } = require('./config/tokens.js');
@@ -18,6 +20,7 @@ var read = require('read');
 var util = require('util');
 const keythereum = require("keythereum");
 const prompt = require('prompt-sync')();
+var hardhatAccounts = {};
 (async function() {
     try {
         const root = '.keystore';
@@ -62,7 +65,7 @@ const prompt = require('prompt-sync')();
 })();
 
 module.exports = {
-    defaultNetwork: "localtest",
+    defaultNetwork: "localhardhat",
     abiExporter: {
         path: "./abi",
         clear: false,
@@ -73,15 +76,15 @@ module.exports = {
     namedAccounts: {
         deployer: {
             default: 0,
-            97: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
-            56: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
-            1337: '0x8D361826cfAFCabD54319D3aE16Bcd245a82253C'
+            97: '0x094b6B1d9cF962d2F87DFE5D16311a17e60E9f0e',
+            56: '0x094b6B1d9cF962d2F87DFE5D16311a17e60E9f0e',
+            1337: '0x094b6B1d9cF962d2F87DFE5D16311a17e60E9f0e'
         },
         admin: {
             default: 1,
-            97: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
-            56: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
-            1337: '0xc0DA279740e88f77420BD34501E25C8dc73c0028'
+            97: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9',
+            56: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9',
+            1337: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9'
         },
         ecoReceiver: {
             default: 2,
@@ -94,9 +97,10 @@ module.exports = {
             56: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
         },
         feeTo: {
-            default: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
-            97: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
-            56: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
+            default: 4,
+            97: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9',
+            56: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9',
+            1337: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9',
         },
     },
     networks: {
@@ -110,7 +114,17 @@ module.exports = {
         localtest: {
             url: `http://127.0.0.1:7545`,
             chainId: 1337,
-            accounts: accounts
+            accounts: accounts,
+            gasPrice: 1.3 * 1000000000,
+            gasLimit: Infinity
+        },
+        localhardhat: {
+            url: `http://127.0.0.1:8080`,
+            chainId: 56,
+            accounts: accounts,
+            gasPrice: 1.3 * 1000000000,
+            gasMultiplier: 1.5,
+            gasLimit: 9999 * 1000000000
         },
         test: {
             url: `https://data-seed-prebsc-1-s1.binance.org:8545`,
@@ -120,6 +134,7 @@ module.exports = {
             tags: ["test"],
         },
         hardhat: {
+            accounts: require('./.accountkeys'),
             forking: {
                 enabled: true,
                 url: `https://bsc-dataseed1.defibit.io/`
@@ -140,8 +155,8 @@ module.exports = {
                 version: "0.8.4",
                 settings: {
                     optimizer: {
-                        enabled: true,
-                        runs: 200,
+                        enabled: false,
+                        runs: 0,
                     },
                 },
             }
@@ -156,6 +171,10 @@ module.exports = {
     },
     etherscan: {
      apiKey: process.env.BSC_API_KEY,
+   },
+   tenderly: {
+    username: "cairofinance",
+    project: "CairoFinance"
    }
 };
 

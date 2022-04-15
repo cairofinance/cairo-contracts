@@ -6,3 +6,10 @@ node_modules/
 **/node_modules
 .keystore
 .env
+.accountkeys.js
+node_modules_2/
+temp/
+deployments/
+artifacts/
+.openzepplin/
+cache/

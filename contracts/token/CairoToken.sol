@@ -2,9 +2,11 @@
 
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import '../libraries/SafeMath.sol';
 import '../interfaces/IBEP20.sol';
+import 'hardhat/console.sol';
 
 // File: contracts/interface/ApproveAndCallFallBack.sol
 
@@ -58,7 +60,7 @@ library Roles {
 }
 
 // File: contracts/CairoToken.sol
-contract CairoToken is ContextUpgradeable, IBEP20 {
+contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     using SafeMath for uint256;
     using Roles for Roles.Role;
 
@@ -68,35 +70,36 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
     string private _name;
     string private _symbol;
     uint8 private _decimals;
-
-    address private _owner;
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-
     bool private _mintable;
 
     Roles.Role private networkContracts;
-    
-    /**
-     * @dev Throws if called by any account other than the owner.
-     */
-    modifier onlyOwner() {
-        require(_owner == _msgSender(), "Ownable: caller is not the owner");
-        _;
-    }
+
+    // Tax Related
+
+    mapping (address => uint8) private _customTaxRate;
+    mapping (address => bool) private _hasCustomTax;
+
+    mapping (address => bool) private _isExcluded;
+    address[] private _excluded;
+
+    event TaxPayed(address from, address vault, uint256 amount);
+    event TokenBurn(address from, uint256 amount);
 
     /**
      * @dev Throws if called by a non network contract.
      */
     modifier onlyNetwork() {
-        require(networkContracts.has(msg.sender) || _owner == _msgSender());
+        require(networkContracts.has(msg.sender));
         _;
     }
 
     /**
      * @dev sets initials supply and the owner
      */
-    function initialize(address owner) public initializer {
-        _owner = owner;
+    function initialize() external initializer {
+        __Ownable_init();
+        __Pausable_init();
+
         _name = "Cairo";
         _symbol = "CAIRO";
         _decimals = 18;
@@ -105,28 +108,6 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
         uint256 initialSupply = 100000000 * 10 ** 18;
         mint(initialSupply);
         _mintable = false;
-    }
-
-    /**
-    * @dev Leaves the contract without owner. It will not be possible to call
-    * `onlyOwner` functions anymore. Can only be called by the current owner.
-    *
-    * NOTE: Renouncing ownership will leave the contract without an owner,
-    * thereby removing any functionality that is only available to the owner.
-    */
-    function renounceOwnership() public onlyOwner {
-        emit OwnershipTransferred(_owner, address(0));
-        _owner = address(0);
-    }
-
-    /**
-     * @dev Transfers ownership of the contract to a new account (`newOwner`).
-     * Can only be called by the current owner.
-     */
-    function transferOwnership(address newOwner) public onlyOwner {
-        require(newOwner != address(0), "Ownable: new owner is the zero address");
-        emit OwnershipTransferred(_owner, newOwner);
-        _owner = newOwner;
     }
 
     /**
@@ -140,7 +121,7 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
      * @dev Returns the bep token owner.
      */
     function getOwner() external override view returns (address) {
-        return _owner;
+        return owner();
     }
 
     /**
@@ -205,7 +186,7 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
      *
      * - `spender` cannot be the zero address.
      */
-    function approve(address spender, uint256 amount) external override returns (bool) {
+    function approve(address spender, uint256 amount) whenNotPaused external override returns (bool) {
         _approve(_msgSender(), spender, amount);
         return true;
     }
@@ -224,7 +205,7 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
     * - `_extraData` The raw data for call another contract
     * - return True if the function call was successful
     */
-    function approveAndCall(ApproveAndCallFallBack _spender, uint256 _amount, bytes calldata _extraData) external returns (bool success) {
+    function approveAndCall(ApproveAndCallFallBack _spender, uint256 _amount, bytes calldata _extraData) whenNotPaused external returns (bool success) {
         _approve(_msgSender(), address(_spender), _amount);
 
         _spender.receiveApproval(
@@ -248,7 +229,7 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
      * - the caller must have allowance for `sender`'s tokens of at least
      * `amount`.
      */
-    function transferFrom(address sender, address recipient, uint256 amount) external override returns (bool) {
+    function transferFrom(address sender, address recipient, uint256 amount) whenNotPaused external override returns (bool) {
         _transfer(sender, recipient, amount);
         _approve(sender, _msgSender(), _allowances[sender][_msgSender()].sub(amount, "BEP20: transfer amount exceeds allowance"));
         return true;
@@ -266,7 +247,7 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
      *
      * - `spender` cannot be the zero address.
      */
-    function increaseAllowance(address spender, uint256 addedValue) public returns (bool) {
+    function increaseAllowance(address spender, uint256 addedValue) whenNotPaused public returns (bool) {
         _approve(_msgSender(), spender, _allowances[_msgSender()][spender].add(addedValue));
         return true;
     }
@@ -285,7 +266,7 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
      * - `spender` must have allowance for the caller of at least
      * `subtractedValue`.
      */
-    function decreaseAllowance(address spender, uint256 subtractedValue) public returns (bool) {
+    function decreaseAllowance(address spender, uint256 subtractedValue) whenNotPaused public returns (bool) {
         _approve(_msgSender(), spender, _allowances[_msgSender()][spender].sub(subtractedValue, "BEP20: decreased allowance below zero"));
         return true;
     }
@@ -294,7 +275,7 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
     /**
    * @dev Burn `amount` tokens and decreasing the total supply.
    */
-    function burn(uint256 amount) public returns (bool) {
+    function burn(uint256 amount) whenNotPaused public returns (bool) {
         _burn(_msgSender(), amount);
         return true;
     }
@@ -351,7 +332,9 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
      */
     function mint(uint256 amount) public onlyOwner returns (bool) {
         require(_mintable, "this token is not mintable");
-        _mint(_msgSender(), amount);
+        console.log("initial mint");
+        console.log(owner());
+        _mint(owner(), amount);
         return true;
     }
 
@@ -372,6 +355,7 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
         _balances[account] = _balances[account].sub(amount, "BEP20: burn amount exceeds balance");
         _totalSupply = _totalSupply.sub(amount);
         emit Transfer(account, address(0), amount);
+        emit TokenBurn(account, amount);
     }
 
     /**
@@ -455,4 +439,34 @@ contract CairoToken is ContextUpgradeable, IBEP20 {
         _burn(account, amount);
         _approve(account, _msgSender(), _allowances[account][_msgSender()].sub(amount, "BEP20: burn amount exceeds allowance"));
     }
+
+    /**
+     * @dev Simply calculates the tax adjusted value and returns it for internal use (percentage function for refuse)
+    */
+    function calculateTransactionTax(uint256 _value, uint8 _tax) internal view returns (uint256 adjustedValue, uint256 taxAmount) {
+        taxAmount = _value.mul(_tax).div(100);
+        adjustedValue = _value.mul(SafeMath.sub(100, _tax)).div(100);
+        return (adjustedValue, taxAmount);
+    }
+
+    /**
+     * @dev Calculate transfer taxes where applicable
+    */
+    function calculateTransferTaxes(address _from, uint256 _value) external view returns (uint256 adjustedValue, uint256 taxAmount){
+        adjustedValue = _value;
+        taxAmount = 0;
+
+        if (!_isExcluded[_from]) {
+            uint8 taxPercent = 10; // set to default tax 10%
+
+            // set custom tax rate if applicable
+            if (_hasCustomTax[_from]){
+                taxPercent = _customTaxRate[_from];
+            }
+
+            (adjustedValue, taxAmount) = calculateTransactionTax(_value, taxPercent);
+        }
+        return (adjustedValue, taxAmount);
+    }
+
 }
