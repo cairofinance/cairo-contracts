@@ -4,6 +4,7 @@
 // When running the script with `hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
+const { ethers, upgrades } = require("hardhat");
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -11,15 +12,36 @@ async function main() {
   //
   // If this script is run directly using `node` you may want to call compile 
   // manually to make sure everything is compiled
-  // await hre.run('compile');
+  await hre.run('compile');
+
+  hre.ethernalSync = true;
+ // hre.ethernalWorkspace = 'Local Testnet';
+  //hre.ethernalTrace = true;
+ // hre.ethernalResetOnStart = 'Hardhat';
 
   // We get the contract to deploy
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  
+  const CairoToken = await hre.ethers.getContractFactory("CairoToken");
+  const token = await upgrades.deployProxy(CairoToken, ["0x8D361826cfAFCabD54319D3aE16Bcd245a82253C"]);
+  await token.deployed();
 
-  await greeter.deployed();
+  console.log("CairoToken deployed to:", token.address);
 
-  console.log("Greeter deployed to:", greeter.address);
+  await hre.ethernal.push({
+      name: 'CairoTokenProxy',
+      address: token.address
+  });
+  
+
+    // We get the contract to deploy
+   /* const Greeter = await ethers.getContractFactory("CairoToken");
+    const greeter = await Greeter.deploy();
+  
+    await greeter.deployed();
+
+    await greeter.initialize("0x8D361826cfAFCabD54319D3aE16Bcd245a82253C");
+  
+    console.log("Greeter deployed to:", greeter.address);*/
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -32,4 +32,4 @@ module.exports = async function ({
 };
 
 module.exports.tags = ['SwapFee'];
-module.exports.dependencies = [/*"CairoToken"*/];
+module.exports.dependencies = ["CairoToken"];

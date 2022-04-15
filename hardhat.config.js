@@ -1,3 +1,4 @@
+//require("@nomiclabs/hardhat-ganache");
 require("@nomiclabs/hardhat-waffle");
 require("hardhat-gas-reporter");
 require("hardhat-spdx-license-identifier");
@@ -5,6 +6,10 @@ require('hardhat-deploy');
 require ('hardhat-abi-exporter');
 require("@nomiclabs/hardhat-ethers");
 require("dotenv/config")
+require('@openzeppelin/hardhat-upgrades');
+require("@tenderly/hardhat-tenderly");
+//require('hardhat-ethernal');
+
 const { TOKENS } = require('./config/tokens.js');
 
 let accounts = [];
@@ -57,7 +62,7 @@ const prompt = require('prompt-sync')();
 })();
 
 module.exports = {
-    defaultNetwork: "hardhat",
+    defaultNetwork: "localtest",
     abiExporter: {
         path: "./abi",
         clear: false,
@@ -70,11 +75,13 @@ module.exports = {
             default: 0,
             97: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
             56: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
+            1337: '0x8D361826cfAFCabD54319D3aE16Bcd245a82253C'
         },
         admin: {
             default: 1,
             97: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
             56: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
+            1337: '0xc0DA279740e88f77420BD34501E25C8dc73c0028'
         },
         ecoReceiver: {
             default: 2,
@@ -99,6 +106,11 @@ module.exports = {
             //gasPrice: 1.3 * 1000000000,
             chainId: 56,
             gasMultiplier: 1.5,
+        },
+        localtest: {
+            url: `http://127.0.0.1:7545`,
+            chainId: 1337,
+            accounts: accounts
         },
         test: {
             url: `https://data-seed-prebsc-1-s1.binance.org:8545`,

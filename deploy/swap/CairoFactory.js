@@ -5,9 +5,13 @@ module.exports = async function ({
     getChainId,
     getUnnamedAccounts,
 }) {
+    console.log("Starting");
     const {deploy} = deployments;
+    console.dir(deployments);
     const {admin, feeTo} = await getNamedAccounts();
     const {deployer} = await ethers.getNamedSigners();
+
+    console.dir(admin);
 
     let deployResult = await deploy('CairoFactory', {
         from: deployer.address,

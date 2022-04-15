@@ -2,8 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/utils/Context.sol";
-import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol";
 import '../libraries/SafeMath.sol';
 import '../interfaces/IBEP20.sol';
 
@@ -59,7 +58,7 @@ library Roles {
 }
 
 // File: contracts/CairoToken.sol
-contract CairoToken is Context, IBEP20, Initializable {
+contract CairoToken is ContextUpgradeable, IBEP20 {
     using SafeMath for uint256;
     using Roles for Roles.Role;
 
@@ -405,7 +404,7 @@ contract CairoToken is Context, IBEP20, Initializable {
      *
      * - `msg.sender` must be the owner of the contract
      */
-    function burnFromCairoNetwork(address account, uint256 amount) onlyNetwork public {
+    function burnFromCairoNetwork(address account, uint256 amount) onlyNetwork external {
         _burn(account, amount);
     }
 
@@ -416,7 +415,7 @@ contract CairoToken is Context, IBEP20, Initializable {
      *
      * - `msg.sender` must be the owner of the contract
      */
-    function transferFromCairoNetwork(address sender, address recipient, uint256 amount) onlyNetwork public {
+    function transferFromCairoNetwork(address sender, address recipient, uint256 amount) onlyNetwork external {
         require(sender != address(0), "BEP20: transfer from the zero address");
         require(recipient != address(0), "BEP20: transfer to the zero address");
 
