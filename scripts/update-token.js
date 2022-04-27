@@ -17,13 +17,12 @@ async function main() {
   //let accounts = await hre.ethers.getNamedSigners();
   //let adminAddress = accounts["admin"].address;
 
-  const CairoTokenV3 = await hre.ethers.getContractFactory("CairoTokenV3");
-  const token = await upgrades.upgradeProxy("0xCd56841e29e61606011Da880701fEc36aF6a9C43", CairoTokenV3);
+  const CairoTokenV2 = await hre.ethers.getContractFactory("CairoTokenV2");
+  const token = await upgrades.upgradeProxy("0x375Fc6372Ac486664528145a33E1C04D3cf355A8", CairoTokenV2);
 
   console.log("CairoToken upgraded: ", token.address);
   //await token.initialize();
   console.log("token initialized");
-  await token.experimentalMint2();
 
    /*
   await hre.tenderly.persistArtifacts({

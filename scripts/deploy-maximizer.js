@@ -20,12 +20,28 @@ async function main() {
   let adminAddress = accounts["admin"].address;
 
   const CairoMaximizer = await hre.ethers.getContractFactory("CairoMaximizer");
-  const maximizer = await upgrades.deployProxy(CairoMaximizer, []);
+  // deploy with token address
+  const maximizer = await upgrades.deployProxy(CairoMaximizer, ["0xfA6160c7596d237fF2c13110d3Db6c45A259F9FC"]);
   await maximizer.deployed();
 
-  console.log("Maximizer deployed to:", token.address);
+  console.log("Maximizer deployed to:", maximizer.address);
 
-  
+ /* await maximizer.updateCompoundTax(5);
+  await maximizer.updateInitialDeposit(ethers.BigNumber.from("1000000000000000000000"));
+  await maximizer.updateExitTax(10);
+  await maximizer.updateMaxPayoutCap(ethers.BigNumber.from("500000000000000000000000"));
+  await maximizer.updateRefBonus(ethers.BigNumber.from("10"));
+  await maximizer.updateAdminFeeAddress(accounts["feeTo"].address);*/
+
+  await maximizer.updateCompoundTax(5);
+  await maximizer.updateInitialDeposit(ethers.BigNumber.from("0x0de0b6b3a7640000"));
+  await maximizer.updateExitTax(10);
+  await maximizer.updateMaxPayoutCap(ethers.BigNumber.from("500000000000000000000000"));
+  await maximizer.updateRefBonus(ethers.BigNumber.from("10"));
+  await maximizer.updateAdminFeeAddress(accounts["feeTo"].address);
+  await maximizer.updateCairoTokenAddress("0xfA6160c7596d237fF2c13110d3Db6c45A259F9FC");
+  console.log("maximizer settings updated");
+
 }
 
 // We recommend this pattern to be able to use async/await everywhere

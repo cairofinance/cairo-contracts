@@ -1787,8 +1787,8 @@
       ]
     },
     "/Users/cloud/projects/cairo-finance-swap/contracts/token/CairoToken.sol": {
-      "lastModificationDate": 1650013870944,
-      "contentHash": "a8a32ab1fb250ff98ffb3a6c97cb259c",
+      "lastModificationDate": 1650693297480,
+      "contentHash": "c339bc08145d627f7333e93aa2acc3aa",
       "sourceName": "contracts/token/CairoToken.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -1824,8 +1824,7 @@
         "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
         "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
         "../libraries/SafeMath.sol",
-        "../interfaces/IBEP20.sol",
-        "hardhat/console.sol"
+        "../interfaces/IBEP20.sol"
       ],
       "versionPragmas": [
         "^0.8.4"
@@ -2293,8 +2292,8 @@
       ]
     },
     "/Users/cloud/projects/cairo-finance-swap/contracts/maximizer/CairoMaximizer.sol": {
-      "lastModificationDate": 1650016607606,
-      "contentHash": "4bf81e947dd1edb1e9e75642c98f2c1f",
+      "lastModificationDate": 1651017284015,
+      "contentHash": "abd57809e64d923c07f13f57ea432cbf",
       "sourceName": "contracts/maximizer/CairoMaximizer.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -2334,9 +2333,7 @@
       ],
       "artifacts": [
         "CairoMaximizer",
-        "ICairoVault",
-        "IToken",
-        "ITokenMint",
+        "ICairoToken",
         "SafeMath"
       ]
     },

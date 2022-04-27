@@ -6,7 +6,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import '../libraries/SafeMath.sol';
 import '../interfaces/IBEP20.sol';
-import 'hardhat/console.sol';
+// import 'hardhat/console.sol';
 
 // File: contracts/interface/ApproveAndCallFallBack.sol
 
@@ -332,8 +332,6 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
      */
     function mint(uint256 amount) public onlyOwner returns (bool) {
         require(_mintable, "this token is not mintable");
-        console.log("initial mint");
-        console.log(owner());
         _mint(owner(), amount);
         return true;
     }

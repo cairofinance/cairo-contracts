@@ -1,0 +1,6 @@
+# TestNet
+CairoToken: 0xfA6160c7596d237fF2c13110d3Db6c45A259F9FC
+CairoMaximizer: Maximizer deployed to: 0xe0907B6E63E775150A8E45A2A3b431769912Fd1c
+
+# MainNet
+CairoToken deployed to: 0x0e2eca3aB92ed805F6fAC946078155fc256572be

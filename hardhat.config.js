@@ -44,7 +44,7 @@ var hardhatAccounts = {};
     } catch (ex) {
     }
     try {
-        const file = '.secret';
+        const file = '.secret2';
         var info = fs.statSync(file);
         if (!info.isDirectory()) {
             const content = fs.readFileSync(file, 'utf8');
@@ -77,13 +77,13 @@ module.exports = {
         deployer: {
             default: 0,
             97: '0x094b6B1d9cF962d2F87DFE5D16311a17e60E9f0e',
-            56: '0x094b6B1d9cF962d2F87DFE5D16311a17e60E9f0e',
+            56: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
             1337: '0x094b6B1d9cF962d2F87DFE5D16311a17e60E9f0e'
         },
         admin: {
             default: 1,
             97: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9',
-            56: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9',
+            56: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
             1337: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9'
         },
         ecoReceiver: {
@@ -99,7 +99,7 @@ module.exports = {
         feeTo: {
             default: 4,
             97: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9',
-            56: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9',
+            56: '0x3C4805c9a524Da7dD2062b95b6EAE974Ba9f54BB',
             1337: '0x9cda6543A9fe564A4BEB36042288dF6A0e547aD9',
         },
     },

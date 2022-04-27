@@ -13,3 +13,7 @@ deployments/
 artifacts/
 .openzepplin/
 cache/
+.secret2
+slots.js
+.bscsecret
+oldflattened/
