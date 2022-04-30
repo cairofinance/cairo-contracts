@@ -17,5 +17,6 @@ cache/
 slots.js
 .bscsecret
 oldflattened/
-.openzepplin/
+.openzepplin/*
 flattened/
+artifacts/*
