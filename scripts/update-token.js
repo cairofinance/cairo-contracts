@@ -6,6 +6,8 @@
 const hre = require("hardhat");
 const { ethers, upgrades } = require("hardhat");
 
+const addressesConfig = require('../addresses.config');
+
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.

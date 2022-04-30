@@ -6,6 +6,9 @@
 const hre = require("hardhat");
 const { ethers, upgrades } = require("hardhat");
 
+const addressesConfig = require('../addresses.config');
+const addressConfig = addressesConfig[addressesConfig.current];
+
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
@@ -21,25 +24,20 @@ async function main() {
 
   const CairoMaximizer = await hre.ethers.getContractFactory("CairoMaximizer");
   // deploy with token address
-  const maximizer = await upgrades.deployProxy(CairoMaximizer, ["0xfA6160c7596d237fF2c13110d3Db6c45A259F9FC"]);
+  const maximizer = await upgrades.deployProxy(CairoMaximizer, [addressConfig.TOKEN_PROXY_ADDRESS]);
   await maximizer.deployed();
 
   console.log("Maximizer deployed to:", maximizer.address);
-
- /* await maximizer.updateCompoundTax(5);
-  await maximizer.updateInitialDeposit(ethers.BigNumber.from("1000000000000000000000"));
-  await maximizer.updateExitTax(10);
-  await maximizer.updateMaxPayoutCap(ethers.BigNumber.from("500000000000000000000000"));
-  await maximizer.updateRefBonus(ethers.BigNumber.from("10"));
-  await maximizer.updateAdminFeeAddress(accounts["feeTo"].address);*/
 
   await maximizer.updateCompoundTax(5);
   await maximizer.updateInitialDeposit(ethers.BigNumber.from("0x0de0b6b3a7640000"));
   await maximizer.updateExitTax(10);
   await maximizer.updateMaxPayoutCap(ethers.BigNumber.from("500000000000000000000000"));
   await maximizer.updateRefBonus(ethers.BigNumber.from("10"));
-  await maximizer.updateAdminFeeAddress(accounts["feeTo"].address);
-  await maximizer.updateCairoTokenAddress("0xfA6160c7596d237fF2c13110d3Db6c45A259F9FC");
+  await maximizer.updateCairoTokenAddress(addressConfig.TOKEN_PROXY_ADDRESS);
+  await maximizer.updatePayoutRate(ethers.BigNumber.from("1"));
+  await maximizer.updateAdminFeeAddress(addressesConfig.mainnet.SPLIT_FEE_50, addressesConfig.mainnet.SPLIT_FEE_50_2);
+
   console.log("maximizer settings updated");
 
 }

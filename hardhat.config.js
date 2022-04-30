@@ -107,9 +107,10 @@ module.exports = {
         mainnet: {
             url: `https://bsc-dataseed3.binance.org`,
             accounts: accounts,
-            //gasPrice: 1.3 * 1000000000,
+           // gasPrice: 1.3 * 1000000000,
             chainId: 56,
-            gasMultiplier: 1.5,
+           // gasMultiplier: 1.5,
+           // gasLimit: Infinity
         },
         localtest: {
             url: `http://127.0.0.1:7545`,
@@ -155,8 +156,8 @@ module.exports = {
                 version: "0.8.4",
                 settings: {
                     optimizer: {
-                        enabled: false,
-                        runs: 0,
+                        enabled: true,
+                        runs: 10,
                     },
                 },
             }

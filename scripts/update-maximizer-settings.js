@@ -5,6 +5,7 @@
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
 const { ethers, upgrades } = require("hardhat");
+const addressesConfig = require('../addresses.config');
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -31,8 +32,10 @@ async function main() {
   await maximizer.updateMaxPayoutCap(ethers.BigNumber.from("500000000000000000000000"));
   await maximizer.updateRefBonus(ethers.BigNumber.from("10"));
   await maximizer.updateAdminFeeAddress(accounts["feeTo"].address);*/
-  await maximizer.updateCairoTokenAddress("0xfA6160c7596d237fF2c13110d3Db6c45A259F9FC");
+  //await maximizer.updateCairoTokenAddress("0xfA6160c7596d237fF2c13110d3Db6c45A259F9FC");
   // await maximizer.updatePayoutRate(ethers.BigNumber.from("1"));
+
+  await maximizer.updateAdminFeeAddress(addressesConfig.mainnet.SPLIT_FEE_50, addressesConfig.mainnet.SPLIT_FEE_50_2);
   console.log("maximizer settings updated");
 }
 

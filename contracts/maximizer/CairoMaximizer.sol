@@ -122,6 +122,8 @@ contract CairoMaximizer is OwnableUpgradeable {
     event HeartBeat(address indexed addr, uint256 timestamp);
     event Checkin(address indexed addr, uint256 timestamp);
 
+    address public adminFeeAddress2;
+
     /* ========== INITIALIZER ========== */
 
     function initialize(address cairoTokenAddr) external initializer {
@@ -148,12 +150,9 @@ contract CairoMaximizer is OwnableUpgradeable {
         maximizerBurnPercent = _newBurnPercent;
     }
 
-    function updateAdminFee(uint256 _newAdminFee) public onlyOwner {
-        maximizerAdminFee = _newAdminFee;
-    }
-
-    function updateAdminFeeAddress(address feeAddress) public onlyOwner {
+    function updateAdminFeeAddress(address feeAddress, address feeAddress2) public onlyOwner {
         adminFeeAddress = feeAddress;
+        adminFeeAddress2 = feeAddress2;
     }
 
     function updateKeepPercent(uint256 _newKeepPercent) public onlyOwner {
@@ -225,7 +224,8 @@ contract CairoMaximizer is OwnableUpgradeable {
 
         //Transfer CAIRO to the contract
         require(
-            cairoToken.transfer(
+            cairoToken.transferFrom(
+                _addr,
                 address(this),
                 _amount
             ),
@@ -235,15 +235,17 @@ contract CairoMaximizer is OwnableUpgradeable {
         // Burn 90% of what goes in to the maximizer
 
         uint256 scriptShare = _amount.mul(10).div(100);
-        uint256 onePercent = scriptShare.mul(1).div(100);
-        uint256 halfPercent = onePercent.div(2);
-        uint256 adminFee = onePercent.add(halfPercent);
-        // uint256 maximizerFee = onePercent.mul(8).add(halfPercent);
+        uint256 adminHalfShare = scriptShare.mul(50).div(100);
 
         cairoToken.burnFromCairoNetwork(address(this), _amount.sub(scriptShare));
 
         require(
-            cairoToken.transfer(address(adminFeeAddress), adminFee),
+            cairoToken.transfer(address(adminFeeAddress), adminHalfShare),
+            "CAIRO token transfer failed"
+        );
+
+        require(
+            cairoToken.transfer(address(adminFeeAddress2), adminHalfShare),
             "CAIRO token transfer failed"
         );
 
@@ -355,12 +357,12 @@ contract CairoMaximizer is OwnableUpgradeable {
                         //This should only be called once
                         _team_found = true;
 
-                        (uint256 gross_payout_upline,,,) = payoutOf(_up);
+                        (uint256 gross_payout_upline,,) = payoutOf(_up);
                         users[_up].accumulatedDiv = gross_payout_upline;
                         users[_up].deposits += _up_share;
                         users[_up].deposit_time = block.timestamp;
 
-                        (uint256 gross_payout_addr,,,) = payoutOf(_addr);
+                        (uint256 gross_payout_addr,,) = payoutOf(_addr);
                         users[_addr].accumulatedDiv = gross_payout_addr;
                         users[_addr].deposits += _share;
                         users[_addr].deposit_time = block.timestamp;
@@ -384,7 +386,7 @@ contract CairoMaximizer is OwnableUpgradeable {
                         emit MatchPayout(_up, _addr, _up_share);
                     } else {
 
-                        (uint256 gross_payout,,,) = payoutOf(_up);
+                        (uint256 gross_payout,,) = payoutOf(_up);
                         users[_up].accumulatedDiv = gross_payout;
                         users[_up].deposits += _bonus;
                         users[_up].deposit_time = block.timestamp;
@@ -434,12 +436,18 @@ contract CairoMaximizer is OwnableUpgradeable {
         uint256 to_payout = _claim(_addr, false);
 
         uint256 scriptShare = to_payout.mul(5).div(100);
-        uint256 fifteenPercent = scriptShare.mul(15).div(100);
+        //uint256 fifteenPercent = scriptShare.mul(15).div(100);
+        uint256 adminHalfShare = scriptShare.mul(50).div(100);
 
         uint256 payout_taxed = to_payout.sub(scriptShare);
 
         require(
-            cairoToken.transferFrom(address(this), address(adminFeeAddress), fifteenPercent),
+            cairoToken.transfer(address(adminFeeAddress), adminHalfShare),
+            "CAIRO token transfer failed: please add BNB for gas"
+        );
+
+        require(
+            cairoToken.transfer(address(adminFeeAddress2), adminHalfShare),
             "CAIRO token transfer failed: please add BNB for gas"
         );
 
@@ -466,12 +474,12 @@ contract CairoMaximizer is OwnableUpgradeable {
         // uint256 eightyFivePercent = scriptShare.mul(85).div(100);
 
         require(
-            cairoToken.transferFrom(address(this), address(adminFeeAddress), fifteenPercent),
+            cairoToken.transfer(address(adminFeeAddress), fifteenPercent),
             "CAIRO token transfer failed"
         );
 
         uint256 realizedPayout = to_payout.sub(scriptShare);
-        require(cairoToken.transferFrom(address(this), address(msg.sender), realizedPayout), "Cairo token payout failed");
+        require(cairoToken.transfer(address(msg.sender), realizedPayout), "Cairo token payout failed");
 
         emit Leaderboard(_addr, users[_addr].referrals, users[_addr].deposits, users[_addr].payouts, users[_addr].total_structure);
         total_txs++;
@@ -480,7 +488,7 @@ contract CairoMaximizer is OwnableUpgradeable {
 
     //@dev Claim current payouts
     function _claim(address _addr, bool isClaimedOut) internal returns (uint256) {
-        (uint256 _gross_payout, uint256 _max_payout, uint256 _to_payout, uint256 _sustainability_fee) = payoutOf(_addr);
+        (uint256 _gross_payout, uint256 _max_payout, uint256 _to_payout) = payoutOf(_addr);
         require(users[_addr].payouts < _max_payout, "Full payouts");
 
         // Deposit payout
@@ -572,7 +580,7 @@ contract CairoMaximizer is OwnableUpgradeable {
 
     //@dev Returns amount of claims available for sender
     function claimsAvailable(address _addr) public view returns (uint256) {
-        (uint256 _gross_payout, uint256 _max_payout, uint256 _to_payout, uint256 _sustainability_fee) = payoutOf(_addr);
+        (uint256 _gross_payout, uint256 _max_payout, uint256 _to_payout) = payoutOf(_addr);
         return _to_payout;
     }
 
@@ -582,7 +590,7 @@ contract CairoMaximizer is OwnableUpgradeable {
     }
 
     //@dev Calculate the current payout and maxpayout of a given address
-    function payoutOf(address _addr) public view returns(uint256 payout, uint256 max_payout, uint256 net_payout, uint256 sustainability_fee) {
+    function payoutOf(address _addr) public view returns(uint256 payout, uint256 max_payout, uint256 net_payout) {
         //The max_payout is capped so that we can also cap available rewards daily
         max_payout = maxPayoutOf(users[_addr].deposits).min(max_payout_cap);
 
@@ -600,9 +608,6 @@ contract CairoMaximizer is OwnableUpgradeable {
             if(users[_addr].payouts + payout > max_payout) {
                 payout = max_payout.safeSub(users[_addr].payouts);
             }
-
-            uint256 _fee = 1;
-            sustainability_fee = payout * _fee / 100;
 
             net_payout = payout;
 
@@ -634,8 +639,7 @@ contract CairoMaximizer is OwnableUpgradeable {
         (uint256 _realizedAmount, uint256 taxAmount) = cairoToken.calculateTransferTaxes(_addr, _amount);
         //This can only fail if the balance is insufficient
         require(
-            cairoToken.transferFrom(
-                _addr,
+            cairoToken.transfer(
                 address(cairoVaultAddress),
                 _amount
             ),
@@ -645,7 +649,7 @@ contract CairoMaximizer is OwnableUpgradeable {
         //Make sure _to exists in the system; we increase
         require(users[_to].upline != address(0), "_to not found");
 
-        (uint256 gross_payout,,,) = payoutOf(_to);
+        (uint256 gross_payout,,) = payoutOf(_to);
 
         users[_to].accumulatedDiv = gross_payout;
 
