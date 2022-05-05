@@ -130,7 +130,7 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     event TaxPayed(address from, address vault, uint256 amount);
     event TokenBurn(address from, uint256 amount);
 
-    // DEX Transfer Tax
+    // DEX Transfer
     address[] public pairs;
     address pancakeV2BNBPair;
     IDEXRouter router;

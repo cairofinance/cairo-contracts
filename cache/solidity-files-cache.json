@@ -2294,8 +2294,8 @@
       ]
     },
     "/Users/cloud/projects/cairo-finance-swap/contracts/maximizer/CairoMaximizer.sol": {
-      "lastModificationDate": 1651721829925,
-      "contentHash": "87ab0d283e32b8159605e96895eed203",
+      "lastModificationDate": 1651733070028,
+      "contentHash": "0c344d12ce454b481c90696680d6ad02",
       "sourceName": "contracts/maximizer/CairoMaximizer.sol",
       "solcConfig": {
         "version": "0.8.4",

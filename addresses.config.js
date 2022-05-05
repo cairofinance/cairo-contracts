@@ -1,5 +1,5 @@
 module.exports = {
-    current: 'mainnet',
+    current: 'testnet',
     localnet: {
 
     },
