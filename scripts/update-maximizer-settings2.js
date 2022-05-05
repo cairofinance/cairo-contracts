@@ -27,14 +27,20 @@ async function main() {
 
   console.log("Maximizer updating on:", maximizer.address);
 
-  // await maximizer.updateCompoundTax(5);
-  //await maximizer.updateInitialDeposit(ethers.BigNumber.from("0x0de0b6b3a7640000"));
-  // await maximizer.updateExitTax(10);
-  // await maximizer.updateMaxPayoutCap(ethers.BigNumber.from("500000000000000000000000"));
-  // await maximizer.updateRefBonus(ethers.BigNumber.from("10"));
-  // await maximizer.updateCairoTokenAddress(addressConfig.TOKEN_PROXY_ADDRESS);
-  // await maximizer.updatePayoutRate(ethers.BigNumber.from("1"));
+  /*await maximizer.updateCompoundTax(5);
+  await maximizer.updateInitialDeposit(ethers.BigNumber.from("0x0de0b6b3a7640000"));
+   await maximizer.updateExitTax(10);
+   await maximizer.updateMaxPayoutCap(ethers.BigNumber.from("500000000000000000000000"));
+   await maximizer.updateRefBonus(ethers.BigNumber.from("10"));
+   await maximizer.updateCairoTokenAddress(addressConfig.TOKEN_PROXY_ADDRESS);
+   await maximizer.updatePayoutRate(ethers.BigNumber.from("1"));
   await maximizer.updateAdminFeeAddress(addressesConfig.mainnet.SPLIT_FEE_50, addressesConfig.mainnet.SPLIT_FEE_50_2);
+  */
+ await maximizer.updateRefDepth(10);
+ await maximizer.updateRefBonus(10);
+
+ //await maximizer.updatePayoutRate(ethers.BigNumber.from("1"));
+ await maximizer.updateMaxPayoutCap(ethers.BigNumber.from("500000000000000000000000"));
 
   console.log("maximizer settings updated");
 }

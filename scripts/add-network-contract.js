@@ -6,6 +6,9 @@
 const hre = require("hardhat");
 const { ethers, upgrades } = require("hardhat");
 
+const addressesConfig = require('../addresses.config');
+const addressConfig = addressesConfig[addressesConfig.current];
+
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
@@ -18,9 +21,9 @@ async function main() {
   //let adminAddress = accounts["admin"].address;
 
   const CairoToken = await hre.ethers.getContractFactory("CairoToken");
-  const token = await CairoToken.attach("0xfA6160c7596d237fF2c13110d3Db6c45A259F9FC");
+  const token = await CairoToken.attach(addressConfig.TOKEN_PROXY_ADDRESS);
 
-  await token.addNetworkContract("0xe0907B6E63E775150A8E45A2A3b431769912Fd1c");
+  await token.addNetworkContract(addressConfig.MAXIMIZER_CONTRACT_PROXY);
   console.log("network contracted added");
    /*
   await hre.tenderly.persistArtifacts({

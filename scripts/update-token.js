@@ -7,6 +7,7 @@ const hre = require("hardhat");
 const { ethers, upgrades } = require("hardhat");
 
 const addressesConfig = require('../addresses.config');
+const addressConfig = addressesConfig[addressesConfig.current];
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -19,11 +20,10 @@ async function main() {
   //let accounts = await hre.ethers.getNamedSigners();
   //let adminAddress = accounts["admin"].address;
 
-  const CairoTokenV2 = await hre.ethers.getContractFactory("CairoTokenV2");
-  const token = await upgrades.upgradeProxy("0x375Fc6372Ac486664528145a33E1C04D3cf355A8", CairoTokenV2);
+  const CairoToken = await hre.ethers.getContractFactory("CairoToken");
+  const token = await upgrades.upgradeProxy(addressConfig.TOKEN_PROXY_ADDRESS, CairoToken);
 
   console.log("CairoToken upgraded: ", token.address);
-  //await token.initialize();
   console.log("token initialized");
 
    /*

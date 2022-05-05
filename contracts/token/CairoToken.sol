@@ -8,10 +8,56 @@ import '../libraries/SafeMath.sol';
 import '../interfaces/IBEP20.sol';
 // import 'hardhat/console.sol';
 
-// File: contracts/interface/ApproveAndCallFallBack.sol
-
 interface ApproveAndCallFallBack {
     function receiveApproval(address _from, uint256 _amount, bytes calldata _data) external;
+}
+
+// DEX Router Interface
+interface IDEXFactory {
+    function createPair(address tokenA, address tokenB) external returns (address pair);
+}
+
+interface IDEXRouter {
+    function WETH() external pure returns (address);
+    function factory() external pure returns (address);
+    function swapExactTokensForETHSupportingFeeOnTransferTokens(
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external;
+    function swapExactTokensForTokensSupportingFeeOnTransferTokens(
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external;
+    function addLiquidityETH(
+        address token,
+        uint amountTokenDesired,
+        uint amountTokenMin,
+        uint amountETHMin,
+        address to,
+        uint deadline
+    ) external payable returns (uint amountToken, uint amountETH, uint liquidity);
+    function swapExactETHForTokensSupportingFeeOnTransferTokens(
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external payable;
+    function addLiquidity(
+        address tokenA,
+        address tokenB,
+        uint amountADesired,
+        uint amountBDesired,
+        uint amountAMin,
+        uint amountBMin,
+        address to,
+        uint deadline
+    ) external returns (uint amountA, uint amountB, uint liquidity);
 }
 
 // File: contracts/zep/Roles.sol
@@ -85,6 +131,17 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     event TaxPayed(address from, address vault, uint256 amount);
     event TokenBurn(address from, uint256 amount);
 
+    // DEX Transfer Tax
+    address[] public pairs;
+    address pancakeV2BNBPair;
+    IDEXRouter router;
+
+    address constant WBNB = 0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd; // Testnet - WBNB Token
+
+    // Admin Fee (Sales tax fee collectors)
+    address taxFeeSplit1;
+    address taxFeeSplit2;
+
     /**
      * @dev Throws if called by a non network contract.
      */
@@ -108,6 +165,14 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
         uint256 initialSupply = 100000000 * 10 ** 18;
         mint(initialSupply);
         _mintable = false;
+    }
+
+     /**
+     * @dev setup sales tax collector addresses
+     */
+    function setAdminFeeAddresses(address feeOne, address feeTwo) onlyOwner public {
+        taxFeeSplit1 = feeOne;
+        taxFeeSplit2 = feeTwo;
     }
 
     /**
@@ -280,29 +345,6 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
         return true;
     }
 
-    /**
-     * @dev Moves tokens `amount` from `sender` to `recipient`.
-     *
-     * This is internal function is equivalent to {transfer}, and can be used to
-     * e.g. implement automatic token fees, slashing mechanisms, etc.
-     *
-     * Emits a {Transfer} event.
-     *
-     * Requirements:
-     *
-     * - `sender` cannot be the zero address.
-     * - `recipient` cannot be the zero address.
-     * - `sender` must have a balance of at least `amount`.
-     */
-    function _transfer(address sender, address recipient, uint256 amount) internal {
-        require(sender != address(0), "BEP20: transfer from the zero address");
-        require(recipient != address(0), "BEP20: transfer to the zero address");
-
-        _balances[sender] = _balances[sender].sub(amount, "BEP20: transfer amount exceeds balance");
-        _balances[recipient] = _balances[recipient].add(amount);
-        emit Transfer(sender, recipient, amount);
-    }
-
     /** @dev Creates `amount` tokens and assigns them to `account`, increasing
      * the total supply.
      *
@@ -465,6 +507,86 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
             (adjustedValue, taxAmount) = calculateTransactionTax(_value, taxPercent);
         }
         return (adjustedValue, taxAmount);
+    }
+
+    /**
+     * @dev Moves tokens `amount` from `sender` to `recipient`.
+     *
+     * This is internal function is equivalent to {transfer}, and can be used to
+     * e.g. implement automatic token fees, slashing mechanisms, etc.
+     *
+     * Emits a {Transfer} event.
+     *
+     * Requirements:
+     *
+     * - `sender` cannot be the zero address.
+     * - `recipient` cannot be the zero address.
+     * - `sender` must have a balance of at least `amount`.
+     */
+    function _transfer(address sender, address recipient, uint256 amount) internal {
+        require(sender != address(0), "BEP20: transfer from the zero address");
+        require(recipient != address(0), "BEP20: transfer to the zero address");
+
+        _balances[sender] = _balances[sender].sub(amount, "BEP20: transfer amount exceeds balance");
+
+        uint256 amountReceived = shouldTakeFee(sender, recipient) ? takeFee(sender, amount) : amount;
+        _balances[recipient] = _balances[recipient].add(amountReceived);
+
+        emit Transfer(sender, recipient, amount);
+    }
+
+    /*
+     * SWAP RELATED FUNCTIONS
+     */
+
+    // Checking if the sender is a liqpair controls whether fees are taken on buy or sell
+    function shouldTakeFee(address sender, address recipient) internal view returns (bool) {
+        if (_isExcluded[sender] || _isExcluded[recipient]) return false;
+        address[] memory liqPairs = pairs;
+        for (uint256 i = 0; i < liqPairs.length; i++) {
+            if (sender == liqPairs[i] || recipient == liqPairs[i]) return true;
+        }
+        return false;
+    }
+
+    function takeFee(address sender, uint256 amount) internal returns (uint256) {
+        uint256 halfFeeAmount = amount.mul(10).div(100).div(2);
+
+        // Transfer between two wallets the 10% taken on buy/sell
+        _balances[taxFeeSplit1] = _balances[taxFeeSplit1].add(halfFeeAmount);
+        _balances[taxFeeSplit2] = _balances[taxFeeSplit2].add(halfFeeAmount);
+        emit Transfer(sender, address(taxFeeSplit1), halfFeeAmount);
+        emit Transfer(sender, address(taxFeeSplit2), halfFeeAmount);
+
+        return amount.sub(halfFeeAmount.add(halfFeeAmount));
+    }
+
+    /*
+     * Add actively trading pair
+     */
+    function addKnownPairAddress(address lpPair) onlyOwner public {
+        pairs.push(lpPair);
+    }
+
+    // https://amm.kiemtienonline360.com/#BSC
+    function setupPancakeV1(address routerAddress, address wbnbAddress) onlyOwner public {
+        router = IDEXRouter(routerAddress);
+        pancakeV2BNBPair = IDEXFactory(router.factory()).createPair(wbnbAddress, address(this));
+        pairs.push(pancakeV2BNBPair);
+        
+        _allowances[address(this)][address(router)] = ~uint256(0);
+    }
+
+    function getPairs() public view returns (address[] memory) {
+        address[] memory pairs2 = pairs;
+        return pairs2;
+    }
+
+    /* 
+     * Add transfer tax exempt address for adding liquidity
+     */
+    function addTaxExcludedAddress(address excludeAddress) onlyOwner public {
+        _isExcluded[excludeAddress] = true;
     }
 
 }

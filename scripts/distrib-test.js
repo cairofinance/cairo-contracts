@@ -6,13 +6,16 @@
 const hre = require("hardhat");
 const { ethers, upgrades } = require("hardhat");
 
+const addressesConfig = require('../addresses.config');
+const addressConfig = addressesConfig[addressesConfig.current];
+
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
   //
   // If this script is run directly using `node` you may want to call compile 
   // manually to make sure everything is compiled
-  await hre.run('compile');
+ // await hre.run('compile');
 
   hre.ethernalSync = true;
  // hre.ethernalWorkspace = 'Local Testnet';
@@ -31,20 +34,21 @@ async function main() {
   //console.dir(ethers);
 //const deployer = await hre.ethers.getNamedSigners();
 //console.dir(deployer);
-
+/*
 await network.provider.send("hardhat_setBalance", [
   "0x094b6B1d9cF962d2F87DFE5D16311a17e60E9f0e",
   "0x5538267900000000",
 ]);
-
+*/
   let accounts = await hre.ethers.getNamedSigners();
   let adminAddress = accounts["admin"].address;
 
   const CairoToken = await hre.ethers.getContractFactory("CairoToken");
-  const token = await CairoToken.attach("0x0B2719dd0710170d9cDe15a55C7D459Af3924D44");
+  const token = await CairoToken.attach(addressConfig.TOKEN_PROXY_ADDRESS);
   console.log("CairoToken at: ", token.address);
   //await token.initialize();
-  console.log("token initialized");
+  let symbol = await token.symbol();
+  console.log("token symbol: "+symbol);
   //await token.
 }
 main()

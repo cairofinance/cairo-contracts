@@ -105,7 +105,8 @@ module.exports = {
     },
     networks: {
         mainnet: {
-            url: `https://bsc-dataseed3.binance.org`,
+            //url: `https://bsc-dataseed3.binance.org`,
+            url: 'https://speedy-nodes-nyc.moralis.io/c929a09d283cf2b96fbe0537/bsc/mainnet',
             accounts: accounts,
            // gasPrice: 1.3 * 1000000000,
             chainId: 56,
@@ -128,7 +129,8 @@ module.exports = {
             gasLimit: 9999 * 1000000000
         },
         test: {
-            url: `https://data-seed-prebsc-1-s1.binance.org:8545`,
+            // url: `https://data-seed-prebsc-1-s1.binance.org:8545`,
+            url: 'https://speedy-nodes-nyc.moralis.io/c929a09d283cf2b96fbe0537/bsc/testnet',
             accounts: accounts,
             //gasPrice: 1.3 * 1000000000,
             chainId: 97,

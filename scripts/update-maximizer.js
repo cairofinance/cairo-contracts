@@ -6,6 +6,9 @@
 const hre = require("hardhat");
 const { ethers, upgrades } = require("hardhat");
 
+const addressesConfig = require('../addresses.config');
+const addressConfig = addressesConfig[addressesConfig.current];
+
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
@@ -18,7 +21,7 @@ async function main() {
   //let adminAddress = accounts["admin"].address;
 
   const CairoMaximizer = await hre.ethers.getContractFactory("CairoMaximizer");
-  const token = await upgrades.upgradeProxy("0xe0907B6E63E775150A8E45A2A3b431769912Fd1c", CairoMaximizer);
+  const token = await upgrades.upgradeProxy(addressConfig.MAXIMIZER_CONTRACT_PROXY, CairoMaximizer);
 
   console.log("Maximizer upgraded: ", token.address);
   //await token.initialize();

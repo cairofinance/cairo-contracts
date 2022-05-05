@@ -1787,8 +1787,8 @@
       ]
     },
     "/Users/cloud/projects/cairo-finance-swap/contracts/token/CairoToken.sol": {
-      "lastModificationDate": 1650693297480,
-      "contentHash": "c339bc08145d627f7333e93aa2acc3aa",
+      "lastModificationDate": 1651712697475,
+      "contentHash": "73103f03a07d5ab7b7ebbb1cfe8d4738",
       "sourceName": "contracts/token/CairoToken.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -1832,6 +1832,8 @@
       "artifacts": [
         "ApproveAndCallFallBack",
         "CairoToken",
+        "IDEXFactory",
+        "IDEXRouter",
         "Roles"
       ]
     },
@@ -2292,8 +2294,8 @@
       ]
     },
     "/Users/cloud/projects/cairo-finance-swap/contracts/maximizer/CairoMaximizer.sol": {
-      "lastModificationDate": 1651346177065,
-      "contentHash": "64f546082296976cf482cf5897ac95c6",
+      "lastModificationDate": 1651715902239,
+      "contentHash": "ac5b2807f17779006bc7e297b8869a24",
       "sourceName": "contracts/maximizer/CairoMaximizer.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -2665,6 +2667,52 @@
       "artifacts": [
         "CairoRouter",
         "ISwapMining"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/token/DemoBUSDToken.sol": {
+      "lastModificationDate": 1651713400731,
+      "contentHash": "81e3e23cb910bb814232bbaf0744b0a6",
+      "sourceName": "contracts/token/DemoBUSDToken.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Context",
+        "DemoBUSDToken",
+        "IBEP20",
+        "Ownable",
+        "SafeMath"
       ]
     }
   }
