@@ -1910,6 +1910,706 @@
           }
         }
       }
+    },
+    "b993ce148cbe7340e0df5cbe8ea857c65bc89aa3583db92145da24d9cabb47f3": {
+      "address": "0x67f555354A26953018aFd14235B1c5A50fdCE358",
+      "txHash": "0x3e162dbf3b8c3732654c169d80982f3ecbf13a69e8b49cc3de4f3596c747852d",
+      "layout": {
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:39"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:44"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:87"
+          },
+          {
+            "label": "_paused",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_bool",
+            "contract": "PausableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:29"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "PausableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:102"
+          },
+          {
+            "label": "_balances",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:113"
+          },
+          {
+            "label": "_allowances",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:114"
+          },
+          {
+            "label": "_totalSupply",
+            "offset": 0,
+            "slot": "153",
+            "type": "t_uint256",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:115"
+          },
+          {
+            "label": "_name",
+            "offset": 0,
+            "slot": "154",
+            "type": "t_string_storage",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:116"
+          },
+          {
+            "label": "_symbol",
+            "offset": 0,
+            "slot": "155",
+            "type": "t_string_storage",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:117"
+          },
+          {
+            "label": "_decimals",
+            "offset": 0,
+            "slot": "156",
+            "type": "t_uint8",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:118"
+          },
+          {
+            "label": "_mintable",
+            "offset": 1,
+            "slot": "156",
+            "type": "t_bool",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:119"
+          },
+          {
+            "label": "networkContracts",
+            "offset": 0,
+            "slot": "157",
+            "type": "t_struct(Role)26104_storage",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:121"
+          },
+          {
+            "label": "_customTaxRate",
+            "offset": 0,
+            "slot": "158",
+            "type": "t_mapping(t_address,t_uint8)",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:124"
+          },
+          {
+            "label": "_hasCustomTax",
+            "offset": 0,
+            "slot": "159",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:125"
+          },
+          {
+            "label": "_isExcluded",
+            "offset": 0,
+            "slot": "160",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:127"
+          },
+          {
+            "label": "_excluded",
+            "offset": 0,
+            "slot": "161",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:128"
+          },
+          {
+            "label": "pairs",
+            "offset": 0,
+            "slot": "162",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:134"
+          },
+          {
+            "label": "pancakeV2BNBPair",
+            "offset": 0,
+            "slot": "163",
+            "type": "t_address",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:135"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "164",
+            "type": "t_contract(IDEXRouter)26098",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:136"
+          },
+          {
+            "label": "taxFeeSplit1",
+            "offset": 0,
+            "slot": "165",
+            "type": "t_address",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:139"
+          },
+          {
+            "label": "taxFeeSplit2",
+            "offset": 0,
+            "slot": "166",
+            "type": "t_address",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:140"
+          },
+          {
+            "label": "allNetworkContracts",
+            "offset": 0,
+            "slot": "167",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:146"
+          },
+          {
+            "label": "_totalBurned",
+            "offset": 0,
+            "slot": "168",
+            "type": "t_uint256",
+            "contract": "CairoToken",
+            "src": "contracts/token/CairoToken.sol:149"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IDEXRouter)26098": {
+            "label": "contract IDEXRouter",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(address => mapping(address => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint8)": {
+            "label": "mapping(address => uint8)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Role)26104_storage": {
+            "label": "struct Roles.Role",
+            "members": [
+              {
+                "label": "bearer",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "0de6cf395bf21b1355fbf238c6faca3f2c26611505661cf4fca710cee6edd27d": {
+      "address": "0x065ab1Dbdb542376fd8A3DdAd9C98bfe7cACd7b8",
+      "txHash": "0xaa90abc4c6f7120d5f3a972d6aca200f5476fe62063606d13793c269c67c8e8a",
+      "layout": {
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:39"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:44"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:87"
+          },
+          {
+            "label": "cairoVaultAddress",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:75"
+          },
+          {
+            "label": "adminFeeAddress",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_address",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:76"
+          },
+          {
+            "label": "cairoToken",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_contract(ICairoToken)18090",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:78"
+          },
+          {
+            "label": "users",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_mapping(t_address,t_struct(User)18118_storage)",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:80"
+          },
+          {
+            "label": "airdrops",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_mapping(t_address,t_struct(Airdrop)18125_storage)",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:81"
+          },
+          {
+            "label": "custody",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_mapping(t_address,t_struct(Custody)18136_storage)",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:82"
+          },
+          {
+            "label": "CompoundTax",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:84"
+          },
+          {
+            "label": "ExitTax",
+            "offset": 0,
+            "slot": "108",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:85"
+          },
+          {
+            "label": "payoutRate",
+            "offset": 0,
+            "slot": "109",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:87"
+          },
+          {
+            "label": "ref_depth",
+            "offset": 0,
+            "slot": "110",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:88"
+          },
+          {
+            "label": "ref_bonus",
+            "offset": 0,
+            "slot": "111",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:89"
+          },
+          {
+            "label": "maximizerBurnPercent",
+            "offset": 0,
+            "slot": "112",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:91"
+          },
+          {
+            "label": "maximizerFeePercent",
+            "offset": 0,
+            "slot": "113",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:92"
+          },
+          {
+            "label": "maximizerAdminFee",
+            "offset": 0,
+            "slot": "114",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:93"
+          },
+          {
+            "label": "maximizerKeepAmount",
+            "offset": 0,
+            "slot": "115",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:94"
+          },
+          {
+            "label": "minimumInitial",
+            "offset": 0,
+            "slot": "116",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:96"
+          },
+          {
+            "label": "minimumAmount",
+            "offset": 0,
+            "slot": "117",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:97"
+          },
+          {
+            "label": "max_payout_cap",
+            "offset": 0,
+            "slot": "118",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:99"
+          },
+          {
+            "label": "total_airdrops",
+            "offset": 0,
+            "slot": "119",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:101"
+          },
+          {
+            "label": "total_users",
+            "offset": 0,
+            "slot": "120",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:102"
+          },
+          {
+            "label": "total_deposited",
+            "offset": 0,
+            "slot": "121",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:103"
+          },
+          {
+            "label": "total_withdraw",
+            "offset": 0,
+            "slot": "122",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:104"
+          },
+          {
+            "label": "total_bnb",
+            "offset": 0,
+            "slot": "123",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:105"
+          },
+          {
+            "label": "total_txs",
+            "offset": 0,
+            "slot": "124",
+            "type": "t_uint256",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:106"
+          },
+          {
+            "label": "adminFeeAddress2",
+            "offset": 0,
+            "slot": "125",
+            "type": "t_address",
+            "contract": "CairoMaximizer",
+            "src": "contracts/maximizer/CairoMaximizer.sol:125"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(ICairoToken)18090": {
+            "label": "contract ICairoToken",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_struct(Airdrop)18125_storage)": {
+            "label": "mapping(address => struct CairoMaximizer.Airdrop)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(Custody)18136_storage)": {
+            "label": "mapping(address => struct CairoMaximizer.Custody)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(User)18118_storage)": {
+            "label": "mapping(address => struct CairoMaximizer.User)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Airdrop)18125_storage": {
+            "label": "struct CairoMaximizer.Airdrop",
+            "members": [
+              {
+                "label": "airdrops",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "airdrops_received",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "last_airdrop",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_struct(Custody)18136_storage": {
+            "label": "struct CairoMaximizer.Custody",
+            "members": [
+              {
+                "label": "manager",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "beneficiary",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "last_heartbeat",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "last_checkin",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "heartbeat_interval",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              }
+            ],
+            "numberOfBytes": "160"
+          },
+          "t_struct(User)18118_storage": {
+            "label": "struct CairoMaximizer.User",
+            "members": [
+              {
+                "label": "upline",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "referrals",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "total_structure",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "direct_bonus",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "match_bonus",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "deposits",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "deposit_time",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "payouts",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "7"
+              },
+              {
+                "label": "rolls",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "ref_claim_pos",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "9"
+              },
+              {
+                "label": "accumulatedDiv",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "10"
+              }
+            ],
+            "numberOfBytes": "352"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        }
+      }
     }
   }
 }

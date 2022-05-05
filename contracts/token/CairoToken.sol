@@ -121,7 +121,6 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     Roles.Role private networkContracts;
 
     // Tax Related
-
     mapping (address => uint8) private _customTaxRate;
     mapping (address => bool) private _hasCustomTax;
 
@@ -136,11 +135,21 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     address pancakeV2BNBPair;
     IDEXRouter router;
 
-    address constant WBNB = 0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd; // Testnet - WBNB Token
-
-    // Admin Fee (Sales tax fee collectors)
+    // Admin Tax Collections - Liquidity Pool and Marketing and Development
     address taxFeeSplit1;
     address taxFeeSplit2;
+
+    // Network contract transparency
+    event NetworkContractAdded(address contractAddress);
+    event NetworkContractRemoved(address contractAddress);
+
+    address[] public allNetworkContracts;
+
+    // Simple burn transparency
+    uint256 private _totalBurned;
+
+    // Custom buy/sale tax transparency
+    event ChangedCustomTaxRate(address sender, uint8 newTaxPercent);
 
     /**
      * @dev Throws if called by a non network contract.
@@ -168,7 +177,7 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     }
 
      /**
-     * @dev setup sales tax collector addresses
+     * @dev setup sales tax collector addresses (one for liquidity, other for marketing and development)
      */
     function setAdminFeeAddresses(address feeOne, address feeTwo) onlyOwner public {
         taxFeeSplit1 = feeOne;
@@ -222,6 +231,10 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
      */
     function balanceOf(address account) external override view returns (uint256) {
         return _balances[account];
+    }
+
+    function totalBurn() external view returns (uint256) {
+        return _totalBurned;
     }
 
     /**
@@ -394,6 +407,7 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
 
         _balances[account] = _balances[account].sub(amount, "BEP20: burn amount exceeds balance");
         _totalSupply = _totalSupply.sub(amount);
+        _totalBurned = _totalBurned.add(amount);
         emit Transfer(account, address(0), amount);
         emit TokenBurn(account, amount);
     }
@@ -407,6 +421,16 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
      */
     function removeNetworkContract(address contractAddress) onlyOwner public {
         networkContracts.remove(contractAddress);
+        emit NetworkContractRemoved(contractAddress);
+
+        for (uint i=0;i<allNetworkContracts.length;i++) {
+            if (allNetworkContracts[i] == contractAddress) 
+            {
+                allNetworkContracts[i] = allNetworkContracts[allNetworkContracts.length-1];
+                allNetworkContracts.pop();
+                break;
+            }
+        }
     }
 
     /**
@@ -418,6 +442,8 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
      */
     function addNetworkContract(address contractAddress) onlyOwner public returns (address) {
         networkContracts.add(contractAddress);
+        allNetworkContracts.push(contractAddress);
+        emit NetworkContractAdded(contractAddress);
         return contractAddress;
     }
 
@@ -483,7 +509,7 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     /**
      * @dev Simply calculates the tax adjusted value and returns it for internal use (percentage function for refuse)
     */
-    function calculateTransactionTax(uint256 _value, uint8 _tax) internal view returns (uint256 adjustedValue, uint256 taxAmount) {
+    function calculateTransactionTax(uint256 _value, uint8 _tax) internal pure returns (uint256 adjustedValue, uint256 taxAmount) {
         taxAmount = _value.mul(_tax).div(100);
         adjustedValue = _value.mul(SafeMath.sub(100, _tax)).div(100);
         return (adjustedValue, taxAmount);
@@ -523,7 +549,7 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
      * - `recipient` cannot be the zero address.
      * - `sender` must have a balance of at least `amount`.
      */
-    function _transfer(address sender, address recipient, uint256 amount) internal {
+    function _transfer(address sender, address recipient, uint256 amount) whenNotPaused internal {
         require(sender != address(0), "BEP20: transfer from the zero address");
         require(recipient != address(0), "BEP20: transfer to the zero address");
 
@@ -536,8 +562,14 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     }
 
     /*
-     * SWAP RELATED FUNCTIONS
+     * Transfer tax swap related functions
      */
+
+    function setCustomTaxRate(address sender, uint8 taxRate) external onlyOwner {
+        _hasCustomTax[sender] = true;
+        _customTaxRate[sender] = taxRate;
+        emit ChangedCustomTaxRate(sender, taxRate);
+    }
 
     // Checking if the sender is a liqpair controls whether fees are taken on buy or sell
     function shouldTakeFee(address sender, address recipient) internal view returns (bool) {
@@ -550,13 +582,21 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     }
 
     function takeFee(address sender, uint256 amount) internal returns (uint256) {
-        uint256 halfFeeAmount = amount.mul(10).div(100).div(2);
+        uint8 taxPercent = 10; // set to default trading tax 10%
+
+        // set custom tax rate if applicable
+        if (_hasCustomTax[sender]){
+            taxPercent = _customTaxRate[sender];
+        }
+
+        uint256 halfFeeAmount = amount.mul(taxPercent).div(100).div(2);
 
         // Transfer between two wallets the 10% taken on buy/sell
         _balances[taxFeeSplit1] = _balances[taxFeeSplit1].add(halfFeeAmount);
         _balances[taxFeeSplit2] = _balances[taxFeeSplit2].add(halfFeeAmount);
         emit Transfer(sender, address(taxFeeSplit1), halfFeeAmount);
         emit Transfer(sender, address(taxFeeSplit2), halfFeeAmount);
+        emit TaxPayed(sender, address(this), halfFeeAmount.add(halfFeeAmount));
 
         return amount.sub(halfFeeAmount.add(halfFeeAmount));
     }
@@ -564,12 +604,12 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     /*
      * Add actively trading pair
      */
-    function addKnownPairAddress(address lpPair) onlyOwner public {
+    function addKnownPairAddress(address lpPair) onlyOwner external {
         pairs.push(lpPair);
     }
 
     // https://amm.kiemtienonline360.com/#BSC
-    function setupPancakeV1(address routerAddress, address wbnbAddress) onlyOwner public {
+    function setupPancakeV1(address routerAddress, address wbnbAddress) onlyOwner external {
         router = IDEXRouter(routerAddress);
         pancakeV2BNBPair = IDEXFactory(router.factory()).createPair(wbnbAddress, address(this));
         pairs.push(pancakeV2BNBPair);
@@ -578,15 +618,38 @@ contract CairoToken is OwnableUpgradeable, PausableUpgradeable, IBEP20 {
     }
 
     function getPairs() public view returns (address[] memory) {
-        address[] memory pairs2 = pairs;
-        return pairs2;
+        return pairs;
     }
 
     /* 
      * Add transfer tax exempt address for adding liquidity
      */
-    function addTaxExcludedAddress(address excludeAddress) onlyOwner public {
+    function addTaxExcludedAddress(address excludeAddress) onlyOwner external {
         _isExcluded[excludeAddress] = true;
+        _excluded.push(excludeAddress);
+    }
+
+    function removeTaxExcludedAddress(address excludeAddress) onlyOwner external {
+        _isExcluded[excludeAddress] = false;
+        for (uint i=0;i<_excluded.length;i++) {
+            if (_excluded[i] == excludeAddress) 
+            {
+                _excluded[i] = _excluded[_excluded.length-1];
+                _excluded.pop();
+                break;
+            }
+        }
+    }
+
+    function taxExcludedAddresses() external view returns(address[] memory) {
+        return _excluded;
+    }
+
+    /*
+     * Check network contracts
+     */
+    function isNetworkContract(address addr) external view returns(bool) {
+        return networkContracts.has(addr);
     }
 
 }

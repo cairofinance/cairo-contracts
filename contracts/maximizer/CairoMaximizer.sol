@@ -132,9 +132,8 @@ contract CairoMaximizer is OwnableUpgradeable {
         cairoToken = ICairoToken(cairoTokenAddr);
     }
 
-    //@dev Default payable is empty since Faucet executes trades and recieves BNB
     fallback() external payable {
-        //Do nothing, BNB will be sent to contract when selling tokens
+        
     }
 
     /****** Administrative Functions *******/
@@ -359,7 +358,6 @@ contract CairoMaximizer is OwnableUpgradeable {
                     //events
                     emit NewDeposit(_up, bonus_payout);
                     emit MatchPayout(_up, _addr, bonus_payout);
-                    //}
 
                     if (users[_up].upline == address(0)){
                         users[_addr].ref_claim_pos = ref_depth;
@@ -425,10 +423,14 @@ contract CairoMaximizer is OwnableUpgradeable {
         uint256 to_payout = _claim(_addr);
 
         uint256 scriptShare = to_payout.mul(10).div(100);
-        uint256 fifteenPercent = scriptShare.mul(15).div(100);
+        uint256 adminHalfShare = scriptShare.mul(50).div(100);
+        require(
+            cairoToken.transfer(address(adminFeeAddress), adminHalfShare),
+            "CAIRO token transfer failed"
+        );
 
         require(
-            cairoToken.transfer(address(adminFeeAddress), fifteenPercent),
+            cairoToken.transfer(address(adminFeeAddress2), adminHalfShare),
             "CAIRO token transfer failed"
         );
 
@@ -512,7 +514,7 @@ contract CairoMaximizer is OwnableUpgradeable {
     function getCustody(address _addr) public view returns (address _beneficiary, uint256 _heartbeat_interval, address _manager) {
         return (custody[_addr].beneficiary, custody[_addr].heartbeat_interval, custody[_addr].manager);
     }
-    
+
     function lastActivity(address _addr) public view returns (uint256 _heartbeat, uint256 _lapsed_heartbeat, uint256 _checkin, uint256 _lapsed_checkin) {
         _heartbeat = custody[_addr].last_heartbeat;
         _lapsed_heartbeat = block.timestamp.safeSub(_heartbeat);

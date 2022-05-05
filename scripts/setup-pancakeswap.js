@@ -9,7 +9,7 @@ const addressesConfig = require('../addresses.config');
 const addressConfig = addressesConfig[addressesConfig.current];
 
 async function main() {
-  hre.ethernalSync = true;
+  // hre.ethernalSync = true;
 
   let accounts = await hre.ethers.getNamedSigners();
   let adminAddress = accounts["admin"].address;

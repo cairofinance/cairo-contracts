@@ -1787,8 +1787,8 @@
       ]
     },
     "/Users/cloud/projects/cairo-finance-swap/contracts/token/CairoToken.sol": {
-      "lastModificationDate": 1651712697475,
-      "contentHash": "73103f03a07d5ab7b7ebbb1cfe8d4738",
+      "lastModificationDate": 1651730307965,
+      "contentHash": "07d914be0c45e483bb720d0392f1891b",
       "sourceName": "contracts/token/CairoToken.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -2294,8 +2294,8 @@
       ]
     },
     "/Users/cloud/projects/cairo-finance-swap/contracts/maximizer/CairoMaximizer.sol": {
-      "lastModificationDate": 1651715902239,
-      "contentHash": "ac5b2807f17779006bc7e297b8869a24",
+      "lastModificationDate": 1651721829925,
+      "contentHash": "87ab0d283e32b8159605e96895eed203",
       "sourceName": "contracts/maximizer/CairoMaximizer.sol",
       "solcConfig": {
         "version": "0.8.4",
