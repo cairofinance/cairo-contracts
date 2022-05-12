@@ -1787,8 +1787,8 @@
       ]
     },
     "/Users/cloud/projects/cairo-finance-swap/contracts/token/CairoToken.sol": {
-      "lastModificationDate": 1651730307965,
-      "contentHash": "07d914be0c45e483bb720d0392f1891b",
+      "lastModificationDate": 1651734139852,
+      "contentHash": "beba7413351ac8892b266538dd9afe14",
       "sourceName": "contracts/token/CairoToken.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -2712,6 +2712,52 @@
         "DemoBUSDToken",
         "IBEP20",
         "Ownable",
+        "SafeMath"
+      ]
+    },
+    "/Users/cloud/projects/cairo-finance-swap/contracts/token/ManagementContract.sol": {
+      "lastModificationDate": 1652343876802,
+      "contentHash": "9abcecac639131c718dc1b5a7509af3a",
+      "sourceName": "contracts/token/ManagementContract.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "ICairoToken",
+        "ManagementContract",
         "SafeMath"
       ]
     }

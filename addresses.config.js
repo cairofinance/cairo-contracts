@@ -1,5 +1,5 @@
 module.exports = {
-    current: 'testnet',
+    current: 'mainnet',
     localnet: {
 
     },
@@ -21,6 +21,7 @@ module.exports = {
         SPLIT_FEE_50_2: "0xcf608Af3d58fAF12577b403b9b50F9b832475ee2",
         MAXIMIZER_CONTRACT_PROXY: "0x9E29e1bad3fc137340493Ba49E6FaD4fc224701B",
         LIQUIDITY_POOL_50: "0x0427EA9D3d28dD8D6bc9856eE53E0c3380A8441c",
-        TEAM_POOL_50: "0xcf608Af3d58fAF12577b403b9b50F9b832475ee2"
+        TEAM_POOL_50: "0xcf608Af3d58fAF12577b403b9b50F9b832475ee2",
+        MANAGEMENT_CONTRACT: "0xab5a8735065225677f8e94fc12ec054f5813196e"
     }
 }

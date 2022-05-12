@@ -23,7 +23,8 @@ async function main() {
   const CairoToken = await hre.ethers.getContractFactory("CairoToken");
   const token = await CairoToken.attach(addressConfig.TOKEN_PROXY_ADDRESS);
 
-  await token.addNetworkContract(addressConfig.MAXIMIZER_CONTRACT_PROXY);
+  //await token.addNetworkContract(addressConfig.MAXIMIZER_CONTRACT_PROXY);
+  await token.addNetworkContract(addressConfig.MANAGEMENT_CONTRACT);
   console.log("network contracted added");
    /*
   await hre.tenderly.persistArtifacts({

@@ -89,8 +89,6 @@ contract CairoMaximizer is OwnableUpgradeable {
     uint256 private ref_bonus;
 
     uint private maximizerBurnPercent;
-    uint private maximizerFeePercent;
-    uint256 private maximizerAdminFee;
     uint256 private maximizerKeepAmount;
 
     uint256 private minimumInitial;
@@ -171,7 +169,7 @@ contract CairoMaximizer is OwnableUpgradeable {
     }
 
     function updateCompoundTax(uint256 _newCompoundTax) public onlyOwner {
-        require(_newCompoundTax >= 0 && _newCompoundTax <= 20);
+        require(_newCompoundTax >= 0 && _newCompoundTax <= 20, "Bad tax amount");
         CompoundTax = _newCompoundTax;
     }
 
@@ -184,7 +182,6 @@ contract CairoMaximizer is OwnableUpgradeable {
         max_payout_cap = _newPayoutCap;
     }
 
-    /********** User Fuctions **************************************************/
     function checkin() public {
         address _addr = tx.origin;
         custody[_addr].last_checkin = block.timestamp;
